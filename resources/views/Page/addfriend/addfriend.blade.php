@@ -6,6 +6,7 @@
       <h2 class="text-center display-4">Cari Teman Dengan Menggunakan PIN</h2>
     </div>
   </section>
+  {{-- Helloo tesss --}}
 
   <!-- Main content -->
   <section class="content" style="height: 80vh">
