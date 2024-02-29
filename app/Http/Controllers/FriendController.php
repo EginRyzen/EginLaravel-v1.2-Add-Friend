@@ -16,15 +16,15 @@ class FriendController extends Controller
      */
     public function index(Request $request)
     {
-        // Auth::user();
-
-       if (isset($request->pin)) {
-            $add = User::where('pin',$request->pin)->first();
+        // $user = Auth::user();
+        $pin = $request->pin;
+        if (isset($pin)) {
+            $add = User::where('pin', $request->pin)->where('level', ['user'])->first();
             // dd($add);
-            return view('Page.addfriend.addfriend',compact('add'));
-       }else{
+            return view('Page.addfriend.addfriend', compact('add'));
+        } else {
             return view('Page.addfriend.addfriend');
-       }
+        }
     }
 
     /**

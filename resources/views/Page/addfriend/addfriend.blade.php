@@ -34,19 +34,25 @@
                             <div class="list-group-item">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <img class="profile-user-img img-fluid img-circle"
+                                        <img class="profile-user-img img-fluid img-circle mt-3"
                                             src="{{ asset('image/220240226052530.jpeg') }}" alt="user image">
                                     </div>
                                     <div class="col px-4">
                                         <div>
                                             <h3>{{ $add->name }}</h3>
                                             <p class="mb-0 text-muted">{{ $add->pin }}</p>
-                                            <p class="mb-4">{{ $add->username }}</p>
-                                            <form action="{{ url('addfriend') }}" method="POST">
-                                                @csrf
-                                                <button type="submit" class="btn btn-primary">Add Friend</button>
-                                                <input type="hidden" name="id_addto" value="{{ $add->id }}">
-                                            </form>
+                                            <p class="mb-2">{{ $add->username }}</p>
+                                            @if ($add->pin == Auth::user()->pin)
+                                                <button type="button" class="btn btn-success"><i
+                                                        class="fa fa-user"></i></button>
+                                            @else
+                                                <form action="{{ url('addfriend') }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary"><i
+                                                            class="fas fa-user-plus"></i></button>
+                                                    <input type="hidden" name="id_addto" value="{{ $add->id }}">
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

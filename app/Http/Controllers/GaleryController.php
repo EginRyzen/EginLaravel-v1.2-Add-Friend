@@ -17,21 +17,21 @@ class GaleryController extends Controller
      */
     public function index()
     {
-        
+
 
         $user = Auth::user();
         // dd($user);
         // $galery = Galery::where('id_user', $user->id)->where('status','accept')->latest()->get();
-        $galery = Galery::join('users', 'users.id' ,'=','galeries.id_user')
-        ->where('users.id', $user->id)
-        ->where('galeries.status','accept')
-        ->select('galeries.*','users.username')
-        ->latest()
-        ->get();
+        $galery = Galery::join('users', 'users.id', '=', 'galeries.id_user')
+            ->where('users.id', $user->id)
+            ->where('galeries.status', 'accept')
+            ->select('galeries.*', 'users.username', 'users.profile')
+            ->latest()
+            ->get();
 
         // $datausers = User::where('level',['user'])->get();
         // $users = User::where('id', $user->id)->first();
-        return view('Page.timeline',compact('galery'));
+        return view('Page.timeline', compact('galery'));
     }
 
     /**
@@ -52,40 +52,40 @@ class GaleryController extends Controller
      */
     public function store(Request $request)
     {
-       if (isset($request->foto)) {
-        $user = Auth::user();
-        $validator = Validator::make($request->all(),[
-            'foto' => 'required|image|mimes:png,jpg,svg,gif'
-        ]);
+        if (isset($request->foto)) {
+            $user = Auth::user();
+            $validator = Validator::make($request->all(), [
+                'foto' => 'required|image|mimes:png,jpg,svg,gif'
+            ]);
 
-        if ($validator->fails()) {
-            return back()->with('alert','Foto Tidak Memenuhi Format');
+            if ($validator->fails()) {
+                return back()->with('alert', 'Foto Tidak Memenuhi Format');
+            }
+
+            $nfile = $user->id . date('YmdHis') . '.' . $request->foto->getClientOriginalExtension();
+            $request->foto->move(public_path('image'), $nfile);
+
+            $data = [
+                'id_user' => $user->id,
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+                'foto' => $nfile,
+            ];
+
+            Galery::create($data);
+
+            return back()->with('success', 'Foto Sukses Untuk Di Upload');
+        } else {
+            $user = Auth::user();
+            $data = [
+                'id_user' => $user->id,
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi,
+            ];
+
+            Galery::create($data);
+            return back()->with('success', 'Foto Sukses Untuk Di Upload');
         }
-
-        $nfile = $user->id . date('YmdHis'). '.' . $request->foto->getClientOriginalExtension();
-        $request->foto->move(public_path('image'),$nfile);
-
-        $data = [
-            'id_user' => $user->id,
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'foto' => $nfile,
-        ];
-
-        Galery::create($data);
-
-        return back()->with('success','Foto Sukses Untuk Di Upload');
-       }else{
-        $user = Auth::user();
-        $data = [
-            'id_user' => $user->id,
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-        ];
-
-        Galery::create($data);
-        return back()->with('success','Foto Sukses Untuk Di Upload');
-       }
     }
 
     /**
@@ -94,9 +94,9 @@ class GaleryController extends Controller
      * @param  \App\Models\Galery  $galery
      * @return \Illuminate\Http\Response
      */
-    public function show( $id)
+    public function show($id)
     {
-        Galery::where('id',$id)->delete();
+        Galery::where('id', $id)->delete();
 
         return back();
     }
@@ -123,35 +123,35 @@ class GaleryController extends Controller
     {
         $user = Auth::user();
         if (isset($request->foto)) {
-            $validator = Validator::make($request->all(),[
+            $validator = Validator::make($request->all(), [
                 'foto' => 'required|image|mimes:png,jpg,svg,gif'
             ]);
-    
+
             if ($validator->fails()) {
-                return back()->with('alert','Foto Tidak Memenuhi Format');
+                return back()->with('alert', 'Foto Tidak Memenuhi Format');
             }
-    
-            $nfile = $user->id . date('YmdHis'). '.' . $request->foto->getClientOriginalExtension();
-            $request->foto->move(public_path('image'),$nfile);
-    
+
+            $nfile = $user->id . date('YmdHis') . '.' . $request->foto->getClientOriginalExtension();
+            $request->foto->move(public_path('image'), $nfile);
+
             $data = [
                 'judul' => $request->judul,
                 'deskripsi' => $request->deskripsi,
                 'foto' => $nfile,
             ];
-    
-            Galery::where('id',$id)->update($data);
-    
-            return back()->with('success','Foto Sukses Untuk Di Update');
-        }else{
+
+            Galery::where('id', $id)->update($data);
+
+            return back()->with('success', 'Foto Sukses Untuk Di Update');
+        } else {
             $data = [
                 'judul' => $request->judul,
                 'deskripsi' => $request->deskripsi,
             ];
-    
-            Galery::where('id',$id)->update($data);
-    
-            return back()->with('success','Foto Sukses Untuk Di Update');
+
+            Galery::where('id', $id)->update($data);
+
+            return back()->with('success', 'Foto Sukses Untuk Di Update');
         }
     }
 
