@@ -201,8 +201,13 @@ class UserController extends Controller
         $galery = Galery::where('id_user', $user->id)->latest()->get();
         $users = User::where('id', $user->id)->first();
 
-        // $friends = Friend::where('id_add')
+        $friends = Friend::join('users', 'users.id', '=', 'friends.id_addto')
+            ->where('friends.id_add', $user->id)
+            ->where('friends.confirm', ['pending'])
+            ->select('users.*', 'friends.confirm')
+            ->get();
+        // dd($friends);
 
-        return view('Page.profile', compact('galery', 'users'));
+        return view('Page.profile', compact('galery', 'users', 'friends'));
     }
 }

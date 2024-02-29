@@ -99,7 +99,8 @@
                                         data-toggle="tab">Persetujuan</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#friend" data-toggle="tab">Friends <i
+                                <li class="nav-item"><a class="nav-link" href="#friend"
+                                        data-toggle="tab">Friends({{ count($friends) }}) <i
                                             class="nav-icon fas fa-bell"></i></a>
                                 </li>
                             </ul>
@@ -116,14 +117,14 @@
                                                 <span class="username">
                                                     <a href="#">{{ $users->username }}</a>
                                                     @if ($data->status == 'accept')
-                                                        <a href="#" class="float-right btn btn-success"><i
+                                                        <a href="#" class="float-right btn btn-success btn-xs"><i
                                                                 class="fa fa-check"></i></a>
                                                     @endif
                                                     @if ($data->status == 'declined')
-                                                        <a href="#" class="float-right btn btn-danger">X</a>
+                                                        <a href="#" class="float-right btn btn-danger btn-xs">X</a>
                                                     @endif
                                                     @if ($data->status == 'pending')
-                                                        <a href="#" class="float-right btn btn-secondary">-</a>
+                                                        <a href="#" class="float-right btn btn-secondary btn-xs">-</a>
                                                     @endif
                                                 </span>
                                                 <span class="description">{{ $data->created_at->diffForHumans() }}</span>
@@ -212,35 +213,33 @@
 
                                 <div class="tab-pane" id="friend">
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card">
-                                                <div class="row">
-                                                    <div class="col-auto">
-                                                        <img class="profile-user-img img-fluid img-circle m-1"
-                                                            src="{{ asset('image/220240229142643.jpg') }}"
-                                                            alt="user image">
-                                                    </div>
-                                                    <div class="col px-3">
-                                                        <div>
-                                                            <h4>Krisna</h4>
-                                                            {{-- <p class="mb-0 text-muted">{{ $add->pin }}</p>
-                                                            <p class="mb-2">{{ $add->username }}</p>
-                                                            @if ($add->pin == Auth::user()->pin)
-                                                                <button type="button" class="btn btn-success"><i
-                                                                        class="fa fa-user"></i></button>
+                                        @foreach ($friends as $friend)
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="row py-3">
+                                                        <div class="col-auto">
+                                                            @if ($friend->profil)
+                                                                <img class="profile-user-img img-fluid img-circle m-1"
+                                                                    src="{{ asset('image/' . $friend->profil) }}"
+                                                                    alt="user image">
                                                             @else
-                                                                <form action="{{ url('addfriend') }}" method="POST">
-                                                                    @csrf
-                                                                    <button type="submit" class="btn btn-primary"><i
-                                                                            class="fas fa-user-plus"></i></button>
-                                                                    <input type="hidden" name="id_addto" value="{{ $add->id }}">
-                                                                </form>
-                                                            @endif --}}
+                                                                <img class="profile-user-img img-fluid img-circle m-1"
+                                                                    src="{{ asset('DefaultImage/profil.jpeg') }}"
+                                                                    alt="user image">
+                                                            @endif
+                                                        </div>
+                                                        <div class="col px-3">
+                                                            <div>
+                                                                <h4>{{ $friend->name }}</h4>
+                                                                <p class="mb-0 text-muted">{{ $friend->pin }}</p>
+                                                                <a href=""
+                                                                    class="btn btn-primary btn-sm mt-1">Konfirmasi</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <!-- /.tab-pane -->
