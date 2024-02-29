@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use App\Models\User;
 use App\Models\Galery;
 use Illuminate\Http\Request;
@@ -42,93 +43,94 @@ class UserController extends Controller
         if (isset($id)) {
             // dd($request->input());
             if ($request->profile == null && $request->password == null) {
-                    $data = [
-                        'name' => $request ->name,
-                        'username' => $request ->username,
-                        'email' => $request ->email,
-                    ];
-                    // dd($data);
-                    
-                 User::where('id', $id)->update($data);
-                 return back()->with('succes', 'Pr');
+                $data = [
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                ];
+                // dd($data);
+
+                User::where('id', $id)->update($data);
+                return back()->with('succes', 'Pr');
             }
             if ($request->profile && $request->password) {
-                $nfile = $id . date('YmdHis'). '.' . $request->profile->getClientOriginalExtension();
-                $request->profile->move(public_path('image'),$nfile);
+                $nfile = $id . date('YmdHis') . '.' . $request->profile->getClientOriginalExtension();
+                $request->profile->move(public_path('image'), $nfile);
                 $data = [
-                    'name' => $request ->name,
-                    'username' => $request ->username,
-                    'email' => $request ->email,
-                    'password' => Hash::make($request ->password),
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
                     'profile' => $nfile,
                 ];
                 // dd($data);
-                
-             User::where('id', $id)->update($data);
-             return back()->with('succes', 'Pr');
+
+                User::where('id', $id)->update($data);
+                return back()->with('succes', 'Pr');
             }
 
             if ($request->password == null || $request->profile) {
-                $nfile = $id . date('YmdHis'). '.' . $request->profile->getClientOriginalExtension();
-                $request->profile->move(public_path('image'),$nfile);
+                $nfile = $id . date('YmdHis') . '.' . $request->profile->getClientOriginalExtension();
+                $request->profile->move(public_path('image'), $nfile);
                 $data = [
-                    'name' => $request ->name,
-                    'username' => $request ->username,
-                    'email' => $request ->email,
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
                     'profile' => $nfile,
                 ];
                 // dd($data);
-                
-             User::where('id', $id)->update($data);
-             return back()->with('succes', 'Pr');
+
+                User::where('id', $id)->update($data);
+                return back()->with('succes', 'Pr');
             }
             if ($request->profile == null || $request->password) {
                 $data = [
-                    'name' => $request ->name,
-                    'username' => $request ->username,
-                    'email' => $request ->email,
-                    'password' => Hash::make($request ->password),
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
                 ];
                 // dd($data);
-                
-             User::where('id', $id)->update($data);
-             return back()->with('alert', 'Password Yang Anda Masukan Tidak Sama');
+
+                User::where('id', $id)->update($data);
+                return back()->with('alert', 'Password Yang Anda Masukan Tidak Sama');
+            }
+        } else {
+            $email = User::where('email', $request->email)->first();
+            if ($email) {
+                return back()->with('alert', 'Email Telah Terdaftar!!');
             }
 
-        }else {
-            $email = User::where('email',$request->email)->first();
-        if($email){
-            return back()->with('alert', 'Email Telah Terdaftar!!');
-        }
-        
-        if ($request->password == $request->repassword) {
-            $pin = md5($request->email);
-            $data = [
-                'name' => $request ->name,
-                'username' => $request ->username,
-                'email' => $request ->email,
-                'password' => Hash::make($request ->password),
-                'pin' => $pin,
-            ];
-            
-         User::create($data);
+            if ($request->password == $request->repassword) {
+                $pin = md5($request->email);
+                $data = [
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'pin' => $pin,
+                ];
 
-         return redirect('/')->with('success', 'Silahkan Tunggu Acc Admin Untuk Status');
-        }else{
-            return back()->with('alert', 'Password Yang Anda Masukan Tidak Sama');
-        }
+                User::create($data);
+
+                return redirect('/')->with('success', 'Silahkan Tunggu Acc Admin Untuk Status');
+            } else {
+                return back()->with('alert', 'Password Yang Anda Masukan Tidak Sama');
+            }
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
 
         return redirect('/');
     }
 
-    public function login(Request $request){
-        $email = User::where('email',$request->email)->where('status', 1)->first();
-        if(!$email){
+    public function login(Request $request)
+    {
+        $email = User::where('email', $request->email)->where('status', 1)->first();
+        if (!$email) {
             return back()->with('alert', 'Email Belum Terdaftar Atau User Belum Di Acc!!');
         }
 
@@ -136,14 +138,14 @@ class UserController extends Controller
             return back()->with('alert', 'Password Yang Anda Masukan Salah,Silahkan Cek Password Kembali!!');
         }
 
-        if (Auth::attempt($request->only('email','password'))) {
+        if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
             if ($user->level == 'admin') {
                 return redirect('admin');
-            }else {
+            } else {
                 return redirect('timeline');
             }
-        }else{
+        } else {
             return back();
         }
     }
@@ -198,6 +200,9 @@ class UserController extends Controller
 
         $galery = Galery::where('id_user', $user->id)->latest()->get();
         $users = User::where('id', $user->id)->first();
-        return view('Page.profile',compact('galery','users'));
+
+        // $friends = Friend::where('id_add')
+
+        return view('Page.profile', compact('galery', 'users'));
     }
 }

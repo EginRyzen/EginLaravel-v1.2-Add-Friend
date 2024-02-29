@@ -16,12 +16,13 @@ class FriendController extends Controller
      */
     public function index(Request $request)
     {
-        // $user = Auth::user();
+        $user = Auth::user();
         $pin = $request->pin;
         if (isset($pin)) {
-            $add = User::where('pin', $request->pin)->where('level', ['user'])->first();
+            $add = User::where('pin', $pin)->where('level', ['user'])->first();
+            $friend = Friend::where('id_add', $user->id)->where('id_addto', $add->id)->first();
             // dd($add);
-            return view('Page.addfriend.addfriend', compact('add'));
+            return view('Page.addfriend.addfriend', compact('add', 'friend'));
         } else {
             return view('Page.addfriend.addfriend');
         }

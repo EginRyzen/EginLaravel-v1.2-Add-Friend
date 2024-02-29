@@ -99,6 +99,9 @@
                                         data-toggle="tab">Persetujuan</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
                                 </li>
+                                <li class="nav-item"><a class="nav-link" href="#friend" data-toggle="tab">Friends <i
+                                            class="nav-icon fas fa-bell"></i></a>
+                                </li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -144,7 +147,6 @@
                                     <!-- /.post -->
                                 </div>
 
-                                {{-- @foreach ($users as $item) --}}
                                 <div class="tab-pane" id="settings">
                                     <form action="{{ url('/') }}" method="POST" class="form-horizontal"
                                         enctype="multipart/form-data">
@@ -207,7 +209,40 @@
                                         </div>
                                     </form>
                                 </div>
-                                {{-- @endforeach --}}
+
+                                <div class="tab-pane" id="friend">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <img class="profile-user-img img-fluid img-circle m-1"
+                                                            src="{{ asset('image/220240229142643.jpg') }}"
+                                                            alt="user image">
+                                                    </div>
+                                                    <div class="col px-3">
+                                                        <div>
+                                                            <h4>Krisna</h4>
+                                                            {{-- <p class="mb-0 text-muted">{{ $add->pin }}</p>
+                                                            <p class="mb-2">{{ $add->username }}</p>
+                                                            @if ($add->pin == Auth::user()->pin)
+                                                                <button type="button" class="btn btn-success"><i
+                                                                        class="fa fa-user"></i></button>
+                                                            @else
+                                                                <form action="{{ url('addfriend') }}" method="POST">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-primary"><i
+                                                                            class="fas fa-user-plus"></i></button>
+                                                                    <input type="hidden" name="id_addto" value="{{ $add->id }}">
+                                                                </form>
+                                                            @endif --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- /.tab-pane -->
                             </div>
                             <!-- /.tab-content -->
