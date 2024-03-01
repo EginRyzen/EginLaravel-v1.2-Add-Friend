@@ -213,6 +213,13 @@
 
                                 <div class="tab-pane" id="friend">
                                     <div class="row">
+                                        <div class="col-md-12">
+                                            @if (session('success'))
+                                                <div class="alert alert-success">
+                                                    {{ Session('success') }}
+                                                </div>
+                                            @endif
+                                        </div>
                                         @foreach ($friends as $friend)
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -232,7 +239,7 @@
                                                             <div>
                                                                 <h4>{{ $friend->name }}</h4>
                                                                 <p class="mb-0 text-muted">{{ $friend->pin }}</p>
-                                                                <a href=""
+                                                                <a href="{{ url('addfriend/' . $friend->idfriend) }}"
                                                                     class="btn btn-primary btn-sm mt-1">Konfirmasi</a>
                                                             </div>
                                                         </div>

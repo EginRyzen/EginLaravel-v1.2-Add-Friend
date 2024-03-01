@@ -75,9 +75,14 @@ class FriendController extends Controller
      * @param  \App\Models\Friend  $friend
      * @return \Illuminate\Http\Response
      */
-    public function show(Friend $friend)
+    public function show($id)
     {
-        //
+        $data = [
+            'confirm' => 'accept'
+        ];
+
+        Friend::where('id', $id)->update($data);
+        return back()->with('success', 'Success Your Confirm');
     }
 
     /**

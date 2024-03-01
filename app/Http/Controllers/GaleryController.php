@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use App\Models\User;
 use App\Models\Galery;
 use Illuminate\Http\Request;
@@ -22,12 +23,19 @@ class GaleryController extends Controller
         $user = Auth::user();
         // dd($user);
         // $galery = Galery::where('id_user', $user->id)->where('status','accept')->latest()->get();
+        // $friendadd =  Friend::where('id_addto', $user->id)
+        //     ->get();
+        // // $friendto =  Friend::where('id_addto', $user->id)->get();
+
+        // dd($friendadd);
         $galery = Galery::join('users', 'users.id', '=', 'galeries.id_user')
             ->where('users.id', $user->id)
             ->where('galeries.status', 'accept')
             ->select('galeries.*', 'users.username', 'users.profile')
             ->latest()
             ->get();
+        dd($galery);
+
 
         // $datausers = User::where('level',['user'])->get();
         // $users = User::where('id', $user->id)->first();

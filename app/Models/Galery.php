@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Galery extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $guarded =[];
+    protected $guarded = [];
+
+    // public function galeries()
+    // {
+    //     return $this->hasMany(Galery::class, 'id_user', 'id');
+    // }
 }

@@ -204,7 +204,7 @@ class UserController extends Controller
         $friends = Friend::join('users', 'users.id', '=', 'friends.id_addto')
             ->where('friends.id_add', $user->id)
             ->where('friends.confirm', ['pending'])
-            ->select('users.*', 'friends.confirm')
+            ->select('users.*', 'friends.confirm', 'friends.id as idfriend')
             ->get();
         // dd($friends);
 
