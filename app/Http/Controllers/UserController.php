@@ -201,8 +201,8 @@ class UserController extends Controller
         $galery = Galery::where('id_user', $user->id)->latest()->get();
         $users = User::where('id', $user->id)->first();
 
-        $friends = Friend::join('users', 'users.id', '=', 'friends.id_addto')
-            ->where('friends.id_add', $user->id)
+        $friends = Friend::join('users', 'users.id', '=', 'friends.id_add')
+            ->where('friends.id_addto', $user->id)
             ->where('friends.confirm', ['pending'])
             ->select('users.*', 'friends.confirm', 'friends.id as idfriend')
             ->get();

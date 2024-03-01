@@ -112,8 +112,13 @@
                                     @foreach ($galery as $data)
                                         <div class="post">
                                             <div class="user-block">
-                                                <img class="img-circle img-bordered-sm"
-                                                    src="{{ asset('image/' . $users->profile) }}" alt="user image">
+                                                @if ($data->profile)
+                                                    <img class="img-circle img-bordered-sm"
+                                                        src="{{ asset('image/' . $users->profile) }}" alt="user image">
+                                                @else
+                                                    <img class="img-circle img-bordered-sm"
+                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
+                                                @endif
                                                 <span class="username">
                                                     <a href="#">{{ $users->username }}</a>
                                                     @if ($data->status == 'accept')

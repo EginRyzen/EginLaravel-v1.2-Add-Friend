@@ -23,18 +23,22 @@ class GaleryController extends Controller
         $user = Auth::user();
         // dd($user);
         // $galery = Galery::where('id_user', $user->id)->where('status','accept')->latest()->get();
-        // $friendadd =  Friend::where('id_addto', $user->id)
-        //     ->get();
-        // // $friendto =  Friend::where('id_addto', $user->id)->get();
+        $friendadd =  Friend::where('id_add', $user->id)
+            ->orWhere('id_addto', $user->id)
+            ->where('confirm', 'accept')
+            // ->pluck('id_add')
+            ->get()
+            ->toArray();
+        $idarray =  array_column($friendadd, 'id_add');
 
-        // dd($friendadd);
-        $galery = Galery::join('users', 'users.id', '=', 'galeries.id_user')
-            ->where('users.id', $user->id)
+        // dd($idarray);
+        $galery = Galery::whereIn('id_user', $idarray)
             ->where('galeries.status', 'accept')
+            ->join('users', 'users.id', '=', 'galeries.id_user')
             ->select('galeries.*', 'users.username', 'users.profile')
             ->latest()
             ->get();
-        dd($galery);
+        // dd($galery);
 
 
         // $datausers = User::where('level',['user'])->get();

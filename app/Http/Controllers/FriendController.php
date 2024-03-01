@@ -77,11 +77,21 @@ class FriendController extends Controller
      */
     public function show($id)
     {
-        $data = [
+        $user = Auth::user();
+        $friend = Friend::where('id', $id)->first();
+        // dd($friend);
+
+        $acc = [
             'confirm' => 'accept'
         ];
+        Friend::where('id', $id)->update($acc);
+        Friend::create([
+            'id_add' => $user->id,
+            'id_addto' => $friend->id_add,
+            'confirm' => 'accept',
+        ]);
 
-        Friend::where('id', $id)->update($data);
+
         return back()->with('success', 'Success Your Confirm');
     }
 
