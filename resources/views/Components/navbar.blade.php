@@ -51,8 +51,13 @@
                 <a href="{{ url('profile') }}" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="{{ asset('image/' . Auth::user()->profile) }}" alt="User Avatar"
-                            class="img-size-50 mr-3 img-circle">
+                        @if (Auth::user()->profile)
+                            <img src="{{ asset('image/' . Auth::user()->profile) }}" alt="User Avatar"
+                                class="img-size-50 mr-3 img-circle">
+                        @else
+                            <img src="{{ asset('DefaultImage/profil.jpeg') }}" alt="User Avatar"
+                                class="img-size-50 mr-3 img-circle">
+                        @endif
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 {{ Auth::user()->username }}

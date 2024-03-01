@@ -19,10 +19,21 @@ class FriendController extends Controller
         $user = Auth::user();
         $pin = $request->pin;
         if (isset($pin)) {
-            $add = User::where('pin', $pin)->where('level', ['user'])->first();
-            $friend = Friend::where('id_add', $user->id)->where('id_addto', $add->id)->first();
-            // dd($add);
-            return view('Page.addfriend.addfriend', compact('add', 'friend'));
+            $add = User::where('pin', $pin)->where('level', ['user'])
+                ->where('status', 1)
+                ->first();
+            if ($add) {
+                $friend = Friend::where('id_add', $user->id)->where('id_addto', $add->id)->first();
+                if ($friend) {
+                    return view('Page.addfriend.addfriend', compact('add', 'friend'));
+                } else {
+                    $addme = Friend::where('id_add', $add->id)->where('id_addto', $user->id)->first();
+                    // dd($addme);
+                    return view('Page.addfriend.addfriend', compact('add', 'friend', 'addme'));
+                }
+            } else {
+                return view('Page.addfriend.addfriend');
+            }
         } else {
             return view('Page.addfriend.addfriend');
         }

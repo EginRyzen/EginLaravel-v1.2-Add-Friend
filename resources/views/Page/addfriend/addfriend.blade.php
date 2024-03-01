@@ -59,19 +59,25 @@
                                                 <button type="button" class="btn btn-success"><i
                                                         class="fa fa-user"></i></button>
                                             @else
-                                                @if ($friend->confirm == 'pending')
-                                                    <button type="button" class="btn btn-secondary"><i
-                                                            class="fas fa-user-minus"></i></button>
-                                                @elseif ($friend->confirm == 'accept')
+                                                @if ($friend == null)
                                                     <button type="button" class="btn btn-success"><i
                                                             class="fas fa-user-check"></i></button>
                                                 @else
-                                                    <form action="{{ url('addfriend') }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-primary"><i
-                                                                class="fas fa-user-plus"></i></button>
-                                                        <input type="hidden" name="id_addto" value="{{ $add->id }}">
-                                                    </form>
+                                                    @if ($friend->confirm == 'pending')
+                                                        <button type="button" class="btn btn-secondary"><i
+                                                                class="fas fa-user-minus"></i></button>
+                                                    @elseif ($friend->confirm == 'accept')
+                                                        <button type="button" class="btn btn-success"><i
+                                                                class="fas fa-user-check"></i></button>
+                                                    @else
+                                                        <form action="{{ url('addfriend') }}" method="POST">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-primary"><i
+                                                                    class="fas fa-user-plus"></i></button>
+                                                            <input type="hidden" name="id_addto"
+                                                                value="{{ $add->id }}">
+                                                        </form>
+                                                    @endif
                                                 @endif
                                             @endif
                                         </div>

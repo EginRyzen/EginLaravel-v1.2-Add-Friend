@@ -32,8 +32,8 @@
                                         alt="User profile picture">
                                 @else
                                     <img class="profile-user-img img-fluid img-circle"
-                                        id="previewProfile{{ $users->id }}"
-                                        src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="User profile picture">
+                                        id="previewProfile{{ $users->id }}" src="{{ asset('DefaultImage/profil.jpeg') }}"
+                                        alt="User profile picture">
                                 @endif
                             </div>
 
