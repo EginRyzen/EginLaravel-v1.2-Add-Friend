@@ -28,65 +28,68 @@
                 </div>
             </div>
             @if (isset($add))
-                <div class="row mt-3">
-                    <div class="col-md-10 offset-md-1">
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        @if ($add->profile)
-                                            <img class="profile-user-img img-fluid img-circle mt-3" a
-                                                src="{{ asset('image/' . $add->profile) }}" alt="user image">
-                                        @else
-                                            @if (!$add->profile && Auth::user()->profile)
-                                                <img class="profile-user-img img-fluid img-circle mt-3"
-                                                    src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
-                                            @elseif (!$add->profile && !Auth::user()->profile)
-                                                <img class="profile-user-img img-fluid img-circle mt-3"
-                                                    src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
+                @foreach ($add as $add)
+                    <div class="row mt-3">
+                        <div class="col-md-10 offset-md-1">
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            @if ($add->profile)
+                                                <img class="profile-user-img img-fluid img-circle mt-3" a
+                                                    src="{{ asset('image/' . $add->profile) }}" alt="user image">
                                             @else
-                                                <img class="profile-user-img img-fluid img-circle mt-3"aaa
-                                                    src="{{ asset('image/' . Auth::user()->profile) }}" alt="user image">
-                                            @endif
-                                        @endif
-                                    </div>
-                                    <div class="col px-4">
-                                        <div>
-                                            <h3>{{ $add->name }}</h3>
-                                            <p class="mb-0 text-muted">{{ $add->pin }}</p>
-                                            <p class="mb-2">{{ $add->username }}</p>
-                                            @if ($add->pin == Auth::user()->pin)
-                                                <button type="button" class="btn btn-success"><i
-                                                        class="fa fa-user"></i></button>
-                                            @else
-                                                @if ($friend == null)
-                                                    <button type="button" class="btn btn-success"><i
-                                                            class="fas fa-user-check"></i></button>
+                                                @if (!$add->profile && Auth::user()->profile)
+                                                    <img class="profile-user-img img-fluid img-circle mt-3"
+                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
+                                                @elseif (!$add->profile && !Auth::user()->profile)
+                                                    <img class="profile-user-img img-fluid img-circle mt-3"
+                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
                                                 @else
-                                                    @if ($friend->confirm == 'pending')
-                                                        <button type="button" class="btn btn-secondary"><i
-                                                                class="fas fa-user-minus"></i></button>
-                                                    @elseif ($friend->confirm == 'accept')
+                                                    <img class="profile-user-img img-fluid img-circle mt-3"aaa
+                                                        src="{{ asset('image/' . Auth::user()->profile) }}"
+                                                        alt="user image">
+                                                @endif
+                                            @endif
+                                        </div>
+                                        <div class="col px-4">
+                                            <div>
+                                                <h3>{{ $add->name }}</h3>
+                                                <p class="mb-0 text-muted">{{ $add->pin }}</p>
+                                                <p class="mb-2">{{ $add->username }}</p>
+                                                @if ($add->pin == Auth::user()->pin)
+                                                    <button type="button" class="btn btn-success"><i
+                                                            class="fa fa-user"></i></button>
+                                                @else
+                                                    @if ($friend == null)
                                                         <button type="button" class="btn btn-success"><i
                                                                 class="fas fa-user-check"></i></button>
                                                     @else
-                                                        <form action="{{ url('addfriend') }}" method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-primary"><i
-                                                                    class="fas fa-user-plus"></i></button>
-                                                            <input type="hidden" name="id_addto"
-                                                                value="{{ $add->id }}">
-                                                        </form>
+                                                        @if ($friend->confirm == 'pending')
+                                                            <button type="button" class="btn btn-secondary"><i
+                                                                    class="fas fa-user-minus"></i></button>
+                                                        @elseif ($friend->confirm == 'accept')
+                                                            <button type="button" class="btn btn-success"><i
+                                                                    class="fas fa-user-check"></i></button>
+                                                        @else
+                                                            <form action="{{ url('addfriend') }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-primary"><i
+                                                                        class="fas fa-user-plus"></i></button>
+                                                                <input type="hidden" name="id_addto"
+                                                                    value="{{ $add->id }}">
+                                                            </form>
+                                                        @endif
                                                     @endif
                                                 @endif
-                                            @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             @else
                 <div class="row py-4">
                     <div class="col-md-12">

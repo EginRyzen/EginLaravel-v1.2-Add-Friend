@@ -19,15 +19,30 @@ class FriendController extends Controller
         $user = Auth::user();
         $pin = $request->pin;
         if (isset($pin)) {
-            $add = User::where('pin', $pin)->where('level', ['user'])
+            $search = User::where(function ($query) use ($pin) {
+                $query->where('name', 'LIKE', '%' . $pin . '%')
+                    ->orWhere('username', 'LIKE', '%' . $pin . '%');
+            })
+                ->where('level', 'user')
                 ->where('status', 1)
-                ->first();
-            if ($add) {
-                $friend = Friend::where('id_add', $user->id)->where('id_addto', $add->id)->first();
+                ->get()
+                ->toArray();
+
+            // dd($search);
+            $result = array_column($search, 'id');
+            $add = User::whereIn('id', $result)
+                ->where('level', 'user')
+                ->where('status', 1)
+                ->get();
+
+            // dd($add);
+            if ($result) {
+                $friend = Friend::where('id_add', $user->id)->where('id_addto', $result)->first();
+                // dd($friend);
                 if ($friend) {
                     return view('Page.addfriend.addfriend', compact('add', 'friend'));
                 } else {
-                    $addme = Friend::where('id_add', $add->id)->where('id_addto', $user->id)->first();
+                    $addme = Friend::where('id_add', $result)->where('id_addto', $result)->first();
                     // dd($addme);
                     return view('Page.addfriend.addfriend', compact('add', 'friend', 'addme'));
                 }
