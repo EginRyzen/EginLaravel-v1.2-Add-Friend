@@ -43,13 +43,15 @@
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 {{-- <li class="list-group-item">
-                  <b>Followers</b> <a class="float-right">1,322</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Following</b> <a class="float-right">543</a>
-                </li> --}}
+                                    <b>Followers</b> <a class="float-right">1,322</a>
+                                </li>
                                 <li class="list-group-item">
-                                    <b>Friends</b> <a class="float-right">13,287</a>
+                                    <b>Following</b> <a class="float-right">543</a>
+                                </li> --}}
+                                <li class="list-group-item">
+                                    <a href="" class="text-dark"><b>Friends</b> <span class="float-right"><i
+                                                class="fa fa-user"></i>
+                                            {{ count($countfriends) }}</span></a>
                                 </li>
                             </ul>
 

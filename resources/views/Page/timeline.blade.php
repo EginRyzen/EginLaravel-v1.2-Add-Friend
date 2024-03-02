@@ -73,7 +73,6 @@
                                             <p>
                                                 {{ $data->deskripsi }}
                                             </p>
-
                                             <p>
                                                 <a href="#" class="link-black text-sm mr-2"><i
                                                         class="fas fa-share mr-1"></i> Share</a>
