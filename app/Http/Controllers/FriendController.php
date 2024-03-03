@@ -152,13 +152,18 @@ class FriendController extends Controller
         $users = User::where('id', $user->id)->first();
         $countfriends = Friend::where('id_add', $user->id)->where('confirm', 'accept')->get();
 
-        $friends = Friend::join('users', 'users.id', '=', 'friends.id_add')
-            ->where('friends.id_addto', $user->id)
-            ->where('friends.confirm', ['pending'])
-            ->select('users.*', 'friends.confirm', 'friends.id as idfriend')
+        $friendslist = Friend::join('users', 'users.id', '=', 'friends.id_add')
+            ->where('friends.id_add', $user->id)
+            ->where('friends.confirm', 'accept')
+            ->get()
+            ->toArray();
+        $result = array_column($friendslist, 'id_addto');
+        $friend = User::whereIn('id', $result)
+            ->where('level', 'user')
+            ->where('status', 1)
             ->get();
-        // dd($friends);   
+        // dd($friend);
 
-        return view('Page.addfriend.daftarteman', compact('users', 'friends', 'countfriends'));
+        return view('Page.addfriend.daftarteman', compact('users', 'countfriends', 'friend'));
     }
 }

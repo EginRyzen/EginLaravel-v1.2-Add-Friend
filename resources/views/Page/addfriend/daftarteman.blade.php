@@ -73,42 +73,34 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <div class="card">
-                                            <div class="row p-3">
-                                                <div class="col-auto">
-                                                    <img class="profile-user-img img-fluid img-circle mt-3"
-                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
-                                                </div>
-                                                <div class="col px-4">
-                                                    <div>
-                                                        <h3>Egin</h3>
-                                                        <p class="mb-0 text-muted">abvshs</p>
-                                                        <p class="mb-2">Agus</p>
+                                    @foreach ($friend as $data)
+                                        <div class="col-md-6 mb-4">
+                                            <div class="card">
+                                                <div class="row p-3">
+                                                    <div class="col-auto">
+                                                        @if ($data->profile)
+                                                            <img class="profile-user-img img-fluid img-circle mt-3"
+                                                                src="{{ asset('image/' . $data->profile) }}"
+                                                                alt="user image">
+                                                        @else
+                                                            <img class="profile-user-img img-fluid img-circle mt-3"
+                                                                src="{{ asset('DefaultImage/profil.jpeg') }}"
+                                                                alt="user image">
+                                                        @endif
+                                                    </div>
+                                                    <div class="col px-4">
+                                                        <div>
+                                                            <a href=""
+                                                                class="fs-1x  float-right font-weight-bold">...</a>
+                                                            <h3>{{ $data->name }}</h3>
+                                                            <p class="mb-0 text-muted">{{ $data->pin }}</p>
+                                                            <p class="mb-2">{{ $data->username }}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 mb-4">
-                                        <div class="card">
-                                            <div class="row p-3">
-                                                <div class="col-auto">
-                                                    <img class="profile-user-img img-fluid img-circle mt-3"
-                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
-                                                </div>
-                                                <div class="col px-4">
-                                                    <div>
-                                                        <a href=""
-                                                            class="fs-1x  float-right font-weight-bold">...</a>
-                                                        <h3>Egin</h3>
-                                                        <p class="mb-0 text-muted">abvshs</p>
-                                                        <p class="mb-2">Agus</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <!-- /.tab-content -->
