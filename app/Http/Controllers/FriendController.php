@@ -166,4 +166,18 @@ class FriendController extends Controller
 
         return view('Page.addfriend.daftarteman', compact('users', 'countfriends', 'friend'));
     }
+
+    public function unFriend($id)
+    {
+        $user = Auth::user();
+
+        Friend::where('id_add', $user->id)
+            ->where('id_addto', $id)
+            ->delete();
+        Friend::where('id_addto', $user->id)
+            ->where('id_add', $id)
+            ->delete();
+
+        return back();
+    }
 }

@@ -88,7 +88,7 @@
                                                             <ul class="ml-4 mb-0 fa-ul text-muted">
                                                                 <li class="small mb-2"><span class="fa-li"><i
                                                                             class="fas fa-lg fa-building"></i></span>
-                                                                    Address: Demo Street 123, Demo City 04312, NJ</li>
+                                                                    Address: Ponorogo</li>
                                                                 <li class="small"><span class="fa-li"><i
                                                                             class="fas fa-lg fa-phone"></i></span> Phone :
                                                                     +6285156696153</li>
@@ -107,12 +107,25 @@
                                                 </div>
                                                 <div class="card-footer">
                                                     <div class="text-right">
-                                                        <a href="#" class="btn btn-sm bg-teal">
-                                                            <i class="fas fa-comments"></i>
-                                                        </a>
                                                         <a href="#" class="btn btn-sm btn-primary">
                                                             <i class="fas fa-user"></i> View Profile
                                                         </a>
+                                                        <a href="#" class="btn btn-sm bg-teal">
+                                                            <i class="fas fa-comments"></i>
+                                                        </a>
+                                                        <div class="btn-group dropup">
+                                                            <a href="#" class="btn btn-sm btn-success"
+                                                                data-toggle="dropdown">
+                                                                <i class="fas fa-user-check"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                                                <a href="{{ url('unfriend/' . $data->id) }}"
+                                                                    class="dropdown-item font-weight-bold"
+                                                                    onclick="return confirm('Anda Yakin Untuk Menghapus Pertemanan??/')">
+                                                                    <i class="fas fa-user-times"></i> Hapus Pertemanan
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

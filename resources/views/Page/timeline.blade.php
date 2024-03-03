@@ -85,8 +85,10 @@
                                                 </span>
                                             </p>
 
-                                            <input class="form-control form-control-sm" type="text"
-                                                placeholder="Type a comment">
+                                            <form action="">
+                                                <input class="form-control form-control-sm" type="text"
+                                                    placeholder="Type a comment">
+                                            </form>
                                         </div>
                                         <div class="modal fade" id="modal-update{{ $data->id }}">
                                             <div class="modal-dialog modal-lg">

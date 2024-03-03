@@ -39,4 +39,5 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('addfriend', FriendController::class);
     Route::get('daftarteman', [FriendController::class, 'daftarteman']);
+    Route::get('unfriend/{id}', [FriendController::class, 'unFriend']);
 });
