@@ -207,7 +207,7 @@ class UserController extends Controller
             ->where('friends.confirm', ['pending'])
             ->select('users.*', 'friends.confirm', 'friends.id as idfriend')
             ->get();
-        // dd($friends);   
+        // dd($users);
 
         return view('Page.profile', compact('galery', 'users', 'friends', 'countfriends'));
     }

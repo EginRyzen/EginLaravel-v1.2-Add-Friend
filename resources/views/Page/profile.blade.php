@@ -49,8 +49,8 @@
                                     <b>Following</b> <a class="float-right">543</a>
                                 </li> --}}
                                 <li class="list-group-item">
-                                    <a href="" class="text-dark"><b>Friends</b> <span class="float-right"><i
-                                                class="fa fa-user"></i>
+                                    <a href="{{ url('daftarteman') }}" class="text-dark"><b>Friends</b> <span
+                                            class="float-right"><i class="fa fa-user"></i>
                                             {{ count($countfriends) }}</span></a>
                                 </li>
                             </ul>
@@ -114,7 +114,7 @@
                                     @foreach ($galery as $data)
                                         <div class="post">
                                             <div class="user-block">
-                                                @if ($data->profile)
+                                                @if ($users->profile)
                                                     <img class="img-circle img-bordered-sm"
                                                         src="{{ asset('image/' . $users->profile) }}" alt="user image">
                                                 @else
@@ -195,7 +195,7 @@
                                             <label class="col-sm-2 col-form-label">Profile</label>
                                             <div class="col-sm-10">
                                                 <div class="custom-file">
-                                                    <input type="file" class="" name="profile"
+                                                    <input type="file" accept="image/*" class="" name="profile"
                                                         id="inpurProfile{{ $users->id }}">
                                                     {{-- <label class="custom-file-label" for="customFile">Choose file</label> --}}
                                                 </div>

@@ -18,16 +18,16 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('addfriend', function () {
-//     return view('Page.addfriend.addfriend');
+// Route::get('daftarteman', function () {
+//     return view('Page.addfriend.daftarteman');
 // });
 
 Route::resource('/', UserController::class);
-Route::get('logout', [UserController::class,'logout']);
-Route::post('login', [UserController::class,'login']);
+Route::get('logout', [UserController::class, 'logout']);
+Route::post('login', [UserController::class, 'login']);
 
-Route::group(['middleware' => ['auth']], function(){
-    Route::get('profile', [UserController::class,'profile']);
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('profile', [UserController::class, 'profile']);
 
     Route::resource('timeline', GaleryController::class);
 
@@ -38,4 +38,5 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('historydeclined', [PersetujuanController::class, 'historydeclined']);
 
     Route::resource('addfriend', FriendController::class);
+    Route::get('daftarteman', [FriendController::class, 'daftarteman']);
 });

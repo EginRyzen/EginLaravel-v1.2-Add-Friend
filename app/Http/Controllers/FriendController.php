@@ -143,4 +143,22 @@ class FriendController extends Controller
     {
         //
     }
+
+    public function daftarteman()
+    {
+        $user = Auth::user();
+
+        // $galery = Galery::where('id_user', $user->id)->latest()->get();
+        $users = User::where('id', $user->id)->first();
+        $countfriends = Friend::where('id_add', $user->id)->where('confirm', 'accept')->get();
+
+        $friends = Friend::join('users', 'users.id', '=', 'friends.id_add')
+            ->where('friends.id_addto', $user->id)
+            ->where('friends.confirm', ['pending'])
+            ->select('users.*', 'friends.confirm', 'friends.id as idfriend')
+            ->get();
+        // dd($friends);   
+
+        return view('Page.addfriend.daftarteman', compact('users', 'friends', 'countfriends'));
+    }
 }
