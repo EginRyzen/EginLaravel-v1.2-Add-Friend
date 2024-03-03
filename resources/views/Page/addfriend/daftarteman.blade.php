@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Profile</a></li>
-                        <li class="breadcrumb-item active">User Profile</li>
+                        <li class="breadcrumb-item active">Daftar Teman</li>
                     </ol>
                 </div>
             </div>
@@ -74,47 +74,62 @@
                             <div class="tab-content">
                                 <div class="row">
                                     @foreach ($friend as $data)
-                                        <div class="col-md-6 mb-4">
-                                            <div class="card">
-                                                <div class="row p-3">
-                                                    <div class="col-auto">
-                                                        @if ($data->profile)
-                                                            <img class="profile-user-img img-fluid img-circle mt-3"
-                                                                src="{{ asset('image/' . $data->profile) }}"
-                                                                alt="user image">
-                                                        @else
-                                                            <img class="profile-user-img img-fluid img-circle mt-3"
-                                                                src="{{ asset('DefaultImage/profil.jpeg') }}"
-                                                                alt="user image">
-                                                        @endif
-                                                    </div>
-                                                    <div class="col px-4">
-                                                        <div>
-                                                            <a href=""
-                                                                class="fs-1x  float-right font-weight-bold">...</a>
-                                                            <h3>{{ $data->name }}</h3>
-                                                            <p class="mb-0 text-muted">{{ $data->pin }}</p>
-                                                            <p class="mb-2">{{ $data->username }}</p>
+                                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                                            <div class="card bg-light d-flex flex-fill">
+                                                <div class="card-header text-muted border-bottom-0">
+                                                    {{ $data->username }}
+                                                </div>
+                                                <div class="card-body pt-0">
+                                                    <div class="row">
+                                                        <div class="col-7">
+                                                            <h2 class="lead"><b>{{ $data->name }}</b></h2>
+                                                            {{-- <p class="text-muted text-sm"><b>About: </b> Web Designer / UX /
+                                                                Graphic Artist / Coffee Lover </p> --}}
+                                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                <li class="small mb-2"><span class="fa-li"><i
+                                                                            class="fas fa-lg fa-building"></i></span>
+                                                                    Address: Demo Street 123, Demo City 04312, NJ</li>
+                                                                <li class="small"><span class="fa-li"><i
+                                                                            class="fas fa-lg fa-phone"></i></span> Phone :
+                                                                    +6285156696153</li>
+                                                            </ul>
                                                         </div>
+                                                        <div class="col-5 text-center">
+                                                            @if ($data->profile)
+                                                                <img src="{{ asset('image/' . $data->profile) }}"
+                                                                    alt="user-avatar" class="img-circle img-fluid">
+                                                            @else
+                                                                <img src="{{ asset('DefaultImage/profil.jpeg') }}"
+                                                                    alt="user-avatar" class="img-circle img-fluid">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="text-right">
+                                                        <a href="#" class="btn btn-sm bg-teal">
+                                                            <i class="fas fa-comments"></i>
+                                                        </a>
+                                                        <a href="#" class="btn btn-sm btn-primary">
+                                                            <i class="fas fa-user"></i> View Profile
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
-                                </div>
+                                    <!-- /.tab-content -->
+                                </div><!-- /.card-body -->
                             </div>
-                            <!-- /.tab-content -->
-                        </div><!-- /.card-body -->
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
                     </div>
-                    <!-- /.card -->
+
                 </div>
                 <!-- /.col -->
             </div>
-
-        </div>
-        <!-- /.col -->
-        </div>
-        <!-- /.row -->
+            <!-- /.row -->
         </div>
     </section>
     <!-- /.content -->
