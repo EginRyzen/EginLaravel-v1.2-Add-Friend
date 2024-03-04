@@ -1,49 +1,30 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light ml-0">
-    <button class="navbar-toggler" data-toggle="collapse" data-target="#navCollapse">
+    {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> --}}
     <!-- Left navbar links -->
+    {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}
     <ul class="navbar-nav">
         {{-- <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li> --}}
-        <li class="nav-item d-none d-sm-inline-block">
+        <li class="nav-item  d-sm-inline-block">
             <a href="{{ url('timeline') }}" class="nav-link">Home</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <li class="nav-item  d-sm-inline-block">
             <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-upload">Upload <i
                     class="fa fa-upload"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <li class="nav-item  d-sm-inline-block">
             <a href="{{ url('addfriend') }}" class="nav-link"><i class="fas fa-user-plus"></i></a>
         </li>
     </ul>
+    {{-- </div> --}}
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
-        <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="fas fa-search"></i>
-            </a>
-            <div class="navbar-search-block">
-                <form class="form-inline">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </li>
-
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">

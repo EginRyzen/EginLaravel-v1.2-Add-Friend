@@ -18,8 +18,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('daftarteman', function () {
-//     return view('Page.addfriend.daftarteman');
+// Route::get('profileuser', function () {
+//     return view('Page.addfriend.profileuser');
 // });
 
 Route::resource('/', UserController::class);
@@ -28,6 +28,7 @@ Route::post('login', [UserController::class, 'login']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('profile', [UserController::class, 'profile']);
+    Route::get('profileUser/{id}', [UserController::class, 'profileUser']);
 
     Route::resource('timeline', GaleryController::class);
 

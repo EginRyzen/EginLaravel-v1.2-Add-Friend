@@ -211,4 +211,24 @@ class UserController extends Controller
 
         return view('Page.profile', compact('galery', 'users', 'friends', 'countfriends'));
     }
+
+    public function profileUser($id)
+    {
+        $user = Auth::user();
+        $galery = Galery::join('users', 'users.id', '=', 'galeries.id_user')
+            ->where('galeries.id_user', $id)
+            ->where('galeries.status', 'accept')
+            ->select('galeries.*', 'users.username', 'users.profile')
+            ->latest()
+            ->get();
+        $users = User::where('id', $id)->first();
+        $countfriends = Friend::where('id_add', $id)->where('confirm', 'accept')->get();
+        $friend = Friend::where('id_add', $id)
+            ->where('id_addto', $user->id)
+            ->where('confirm', 'accept')
+            ->first();
+        // dd($friend);
+
+        return view('Page.addfriend.profileuser', compact('galery', 'users', 'countfriends', 'friend'));
+    }
 }
