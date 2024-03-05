@@ -162,42 +162,21 @@
                                         <div class="col-12">
                                             <div class="card card-primary">
                                                 <div class="card-header">
-                                                    <h4 class="card-title">Ekko Lightbox</h4>
+                                                    <h4 class="card-title">Foto Galery</h4>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=1"
-                                                                data-toggle="lightbox" data-title="sample 1 - white"
-                                                                data-gallery="gallery">
-                                                                <img src="https://via.placeholder.com/300/FFFFFF?text=1"
-                                                                    class="img-fluid mb-2" alt="white sample" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <a href="https://via.placeholder.com/1200/000000.png?text=2"
-                                                                data-toggle="lightbox" data-title="sample 2 - black"
-                                                                data-gallery="gallery">
-                                                                <img src="https://via.placeholder.com/300/000000?text=2"
-                                                                    class="img-fluid mb-2" alt="black sample" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=3"
-                                                                data-toggle="lightbox" data-title="sample 3 - red"
-                                                                data-gallery="gallery">
-                                                                <img src="https://via.placeholder.com/300/FF0000/FFFFFF?text=3"
-                                                                    class="img-fluid mb-2" alt="red sample" />
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=4"
-                                                                data-toggle="lightbox" data-title="sample 4 - red"
-                                                                data-gallery="gallery">
-                                                                <img src="https://via.placeholder.com/300/FF0000/FFFFFF?text=4"
-                                                                    class="img-fluid mb-2" alt="red sample" />
-                                                            </a>
-                                                        </div>
+                                                        @foreach ($fotos as $image)
+                                                            <div class="col-sm-3">
+                                                                <a href="{{ asset('image/' . $image->foto) }}"
+                                                                    data-toggle="lightbox"
+                                                                    data-title="{{ $image->foto }}"
+                                                                    data-gallery="gallery">
+                                                                    <img src="{{ asset('image/' . $image->foto) }}"
+                                                                        class="img-fluid mb-2" alt="white sample" />
+                                                                </a>
+                                                            </div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>

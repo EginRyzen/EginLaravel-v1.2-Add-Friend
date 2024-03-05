@@ -199,6 +199,10 @@ class UserController extends Controller
         $user = Auth::user();
 
         $galery = Galery::where('id_user', $user->id)->latest()->get();
+        $fotos = Galery::where('id_user', $user->id)
+            ->where('status', 'accept')
+            ->latest()
+            ->get();
         $users = User::where('id', $user->id)->first();
         $countfriends = Friend::where('id_add', $user->id)->where('confirm', 'accept')->get();
 
@@ -209,7 +213,7 @@ class UserController extends Controller
             ->get();
         // dd($users);
 
-        return view('Page.profile', compact('galery', 'users', 'friends', 'countfriends'));
+        return view('Page.profile', compact('galery', 'users', 'friends', 'countfriends', 'fotos'));
     }
 
     public function profileUser($id)
