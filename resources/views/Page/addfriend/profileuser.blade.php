@@ -41,8 +41,8 @@
                             <p class="text-muted text-center">{{ $users->username }}</p>
 
                             <ul class="list-group list-group-unbordered mb-3">
-                                <a href="{{ url('daftarteman') }}" class="text-dark"><b>Friends</b> <span
-                                        class="float-right"><i class="fa fa-user"></i>
+                                <a href="javascript:;" class="text-dark"><b>Friends</b> <span class="float-right"><i
+                                            class="fa fa-user"></i>
                                         {{ count($countfriends) }}</span></a>
                             </ul>
 

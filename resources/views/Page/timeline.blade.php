@@ -38,7 +38,12 @@
                                                         src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
                                                 @endif
                                                 <span class="username">
-                                                    <a href="#">{{ $data->username }}</a>
+                                                    @if ($data->id_user == Auth::user()->id)
+                                                        <a href="{{ url('profile') }}">{{ $data->username }}</a>
+                                                    @else
+                                                        <a
+                                                            href="{{ url('profileUser/' . $data->id_user) }}">{{ $data->username }}</a>
+                                                    @endif
                                                     <a href="#" class="float-right btn-tool nav-link"
                                                         data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
                                                     <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
@@ -62,8 +67,8 @@
                                                         <a href="{{ url('image/' . $data->foto) }}" data-toggle="lightbox"
                                                             data-title="{{ $data->foto }}" data-gallery="gallery"
                                                             data-footer="<a href='{{ asset('image/' . $data->foto) }}' class='btn btn-warning' download><i class='fa fa-download'></i></a>">
-                                                            <img src="{{ asset('image/' . $data->foto) }}" class="img-fluid"
-                                                                alt="">
+                                                            <img src="{{ asset('image/' . $data->foto) }}"
+                                                                class="img-fluid" alt="">
                                                         </a>
                                                     </div>
                                                     <div class="col-md-4"></div>

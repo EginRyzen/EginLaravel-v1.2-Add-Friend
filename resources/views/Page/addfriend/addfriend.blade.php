@@ -54,7 +54,15 @@
                                         </div>
                                         <div class="col px-4">
                                             <div>
-                                                <h3>{{ $add->name }}</h3>
+                                                @if ($add->id == Auth::user()->id)
+                                                    <a href="{{ url('profile') }}">
+                                                        <h3>{{ $add->name }}</h3>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ url('profileUser/' . $add->id) }}">
+                                                        <h3>{{ $add->name }}</h3>
+                                                    </a>
+                                                @endif
                                                 <p class="mb-0 text-muted">{{ $add->pin }}</p>
                                                 <p class="mb-2">{{ $add->username }}</p>
                                                 @if ($add->pin == Auth::user()->pin)
