@@ -93,7 +93,6 @@ class GaleryController extends Controller
                 'id_user' => $user->id,
                 'judul' => $request->judul,
                 'deskripsi' => $request->deskripsi,
-                'kategori' => $request->kategori,
             ];
 
             Galery::create($data);

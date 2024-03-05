@@ -70,7 +70,8 @@
                             <ul class="nav nav-pills">
                                 <li class="nav-item"><a class="nav-link active" href="#activity"
                                         data-toggle="tab">Activity</a></li>
-                                {{-- <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a>
+                                <li class="nav-item"><a class="nav-link" href="#gallery" data-toggle="tab">Gallery</a>
+                                    {{-- <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
                                 </li> --}}
@@ -134,6 +135,35 @@
                                     @endforeach
                                     <!-- /.post -->
 
+                                </div>
+
+                                <div class="tab-pane" id="gallery">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h4 class="card-title">Foto Galery</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        @foreach ($galery as $image)
+                                                            @if ($image->foto)
+                                                                <div class="col-sm-3">
+                                                                    <a href="{{ asset('image/' . $image->foto) }}"
+                                                                        data-toggle="lightbox"
+                                                                        data-title="{{ $image->foto }}"
+                                                                        data-gallery="gallery">
+                                                                        <img src="{{ asset('image/' . $image->foto) }}"
+                                                                            class="img-fluid mb-2" alt="white sample" />
+                                                                    </a>
+                                                                </div>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.tab-content -->

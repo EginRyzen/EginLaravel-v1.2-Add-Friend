@@ -167,15 +167,17 @@
                                                 <div class="card-body">
                                                     <div class="row">
                                                         @foreach ($fotos as $image)
-                                                            <div class="col-sm-3">
-                                                                <a href="{{ asset('image/' . $image->foto) }}"
-                                                                    data-toggle="lightbox"
-                                                                    data-title="{{ $image->foto }}"
-                                                                    data-gallery="gallery">
-                                                                    <img src="{{ asset('image/' . $image->foto) }}"
-                                                                        class="img-fluid mb-2" alt="white sample" />
-                                                                </a>
-                                                            </div>
+                                                            @if ($image->foto)
+                                                                <div class="col-sm-3">
+                                                                    <a href="{{ asset('image/' . $image->foto) }}"
+                                                                        data-toggle="lightbox"
+                                                                        data-title="{{ $image->foto }}"
+                                                                        data-gallery="gallery">
+                                                                        <img src="{{ asset('image/' . $image->foto) }}"
+                                                                            class="img-fluid mb-2" alt="white sample" />
+                                                                    </a>
+                                                                </div>
+                                                            @endif
                                                         @endforeach
                                                     </div>
                                                 </div>
