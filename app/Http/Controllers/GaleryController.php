@@ -33,6 +33,7 @@ class GaleryController extends Controller
 
         // dd($idarray);
         $galery = Galery::whereIn('id_user', $idarray)
+            ->orWhere('id_user', $user->id)
             ->where('galeries.status', 'accept')
             ->join('users', 'users.id', '=', 'galeries.id_user')
             ->select('galeries.*', 'users.username', 'users.profile')
