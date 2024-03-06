@@ -59,7 +59,7 @@
                                                             <h3>{{ $add->name }}</h3>
                                                         </a>
                                                     @else
-                                                        <a href="{{ url('profileUser/' . $add->id) }}">
+                                                        <a href="javascript:;">
                                                             <h3>{{ $add->name }}</h3>
                                                         </a>
                                                     @endif
