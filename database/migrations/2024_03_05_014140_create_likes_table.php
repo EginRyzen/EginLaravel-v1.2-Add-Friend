@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGaleriesTable extends Migration
+class CreateLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateGaleriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('galeries', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
+            // $table->uuid('id')->primary(); 
             $table->integer('id_user');
-            $table->string('judul')->nullable();
-            $table->text('deskripsi')->nullable();
-            $table->string('foto')->nullable();
-            $table->enum('status', ['accept', 'pending', 'declined'])->default('pending');
+            $table->integer('id_galery');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +30,6 @@ class CreateGaleriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('galeries');
+        Schema::dropIfExists('likes');
     }
 }

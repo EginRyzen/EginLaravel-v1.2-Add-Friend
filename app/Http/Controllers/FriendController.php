@@ -30,22 +30,29 @@ class FriendController extends Controller
 
             // dd($search);
             $result = array_column($search, 'id');
-            $add = User::whereIn('id', $result)
-                ->where('level', 'user')
-                ->where('status', 1)
+            $adds = User::whereIn('users.id', $result)
+                ->leftJoin('friends', 'users.id', '=', 'friends.id_addto')
+                ->select('users.*', 'friends.confirm', 'friends.id_add', 'friends.id_addto')
                 ->get();
 
-            // dd($add);
-            if ($result) {
-                $friend = Friend::where('id_add', $user->id)->where('id_addto', $result)->first();
-                // dd($friend);
-                if ($friend) {
-                    return view('Page.addfriend.addfriend', compact('add', 'friend'));
-                } else {
-                    $addme = Friend::where('id_add', $result)->where('id_addto', $result)->first();
-                    // dd($addme);
-                    return view('Page.addfriend.addfriend', compact('add', 'friend', 'addme'));
-                }
+            // dd($adds);
+            if ($adds) {
+                // $friends = Friend::whereIn('id_addto', $adds->pluck('id')->toArray())
+                //     ->where('id_add', Auth::user()->id)
+                //     ->get();
+                // $friends = Friend::whereIn('id_addto', $result)
+                //     ->join('users', 'users.id', '=', 'friends.id_add')
+                //     ->where('friends.id_add', $user->id)
+                //     ->select('users.*', 'friends.confirm', 'friends.id_add', 'friends.id as idfriend')
+                //     ->get();
+                // if ($friends) {
+                // dd($friends);
+                return view('Page.addfriend.addfriend', compact('adds'));
+                // } else {
+                // $addme = Friend::where('id_add', $result)->where('id_addto', $result)->first();
+                // dd($addme);
+                //     return view('Page.addfriend.addfriend', compact('add', 'friends'));
+                // }
             } else {
                 return view('Page.addfriend.addfriend');
             }

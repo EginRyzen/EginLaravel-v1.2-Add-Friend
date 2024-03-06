@@ -17,7 +17,7 @@ class CreateFriendsTable extends Migration
             $table->id();
             $table->integer('id_add');
             $table->integer('id_addto');
-            $table->enum('confirm',['accept','pending'])->default('pending');
+            $table->enum('confirm', ['accept', 'pending'])->default('pending');
             $table->timestamps();
             $table->softDeletes();
         });

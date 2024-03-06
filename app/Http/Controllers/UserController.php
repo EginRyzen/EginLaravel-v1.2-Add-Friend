@@ -102,14 +102,14 @@ class UserController extends Controller
             }
 
             if ($request->password == $request->repassword) {
-                $pin = md5($request->email);
+                // $pin = md5($request->email);
                 $data = [
                     'name' => $request->name,
                     'username' => $request->username,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
-                    'pin' => $pin,
                 ];
+                // dd($data);
 
                 User::create($data);
 
