@@ -79,15 +79,23 @@
                                                 {{ $data->deskripsi }}
                                             </p>
                                             <p>
-                                                <a href="#" class="link-black text-sm mr-2"><i
-                                                        class="fas fa-share mr-1"></i> Share</a>
-                                                <a href="#" class="link-black text-sm text-primary"><i
-                                                        class="far fa-thumbs-up mr-1"></i> Like</a>
-                                                <span class="float-right">
-                                                    <a href="#" class="link-black text-sm">
-                                                        <i class="far fa-comments mr-1"></i> Comments (5)
+                                            <div class="btn-group dropup">
+                                                <a href="#" class="text-dark mr-2" data-toggle="dropdown"><span>
+                                                        <i class="fas fa-share mr-1"></i></span> Share</a>
+                                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                                    <a href="" class="dropdown-item font-weight-bold text-sm"
+                                                        onclick="return confirm('Anda Yakin Untuk Menghapus Pertemanan??/')">
+                                                        <i class="fab fa-whatsapp"></i> Kirim WhatsApp
                                                     </a>
-                                                </span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="text-dark"><span>
+                                                    <i class="far fa-thumbs-up mr-1"></i></span> Like</a>
+                                            <span class="float-right">
+                                                <a href="#" class="link-black text-sm">
+                                                    <i class="far fa-comments mr-1"></i> Comments (5)
+                                                </a>
+                                            </span>
                                             </p>
 
                                             <form action="">
