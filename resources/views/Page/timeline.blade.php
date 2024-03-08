@@ -89,8 +89,19 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <a href="#" class="text-dark"><span>
-                                                    <i class="far fa-thumbs-up mr-1"></i></span> Like</a>
+                                            @php
+                                                $liked = $countlikes->contains('id_galery', $data->id);
+                                                $likeCount = $countlikes->where('id_galery', $data->id)->count();
+                                            @endphp
+                                            @if ($liked)
+                                                <a href="{{ url('like/' . $data->id) }}" class="text-primary"><span>
+                                                        <i class="far fa-thumbs-up mr-1"></i></span>{{ $likeCount }}
+                                                    Like</a>
+                                            @else
+                                                <a href="{{ url('like/' . $data->id) }}" class="text-dark"><span>
+                                                        <i class="far fa-thumbs-up mr-1"></i></span>
+                                                    Like</a>
+                                            @endif
                                             <span class="float-right">
                                                 <a href="#" class="link-black text-sm">
                                                     <i class="far fa-comments mr-1"></i> Comments (5)

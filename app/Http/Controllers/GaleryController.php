@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Friend;
 use App\Models\User;
 use App\Models\Galery;
+use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -22,7 +23,8 @@ class GaleryController extends Controller
 
         $user = Auth::user();
         // dd($user);
-        // $galery = Galery::where('id_user', $user->id)->where('status','accept')->latest()->get();
+        // $galery = Galery::where('id_user', $user->id)->where('status', 'accept')->latest()->get();
+        // dd($galery);
         $friendadd =  Friend::where('id_add', $user->id)
             ->orWhere('id_addto', $user->id)
             ->where('confirm', 'accept')
@@ -32,19 +34,27 @@ class GaleryController extends Controller
         $idarray =  array_column($friendadd, 'id_add');
 
         // dd($idarray);
-        $galery = Galery::whereIn('id_user', $idarray)
-            ->orWhere('id_user', $user->id)
+        $galery = Galery::where(function ($query) use ($idarray, $user) {
+            $query->whereIn('id_user', $idarray)
+                ->orWhere('id_user', $user->id);
+        })
             ->where('galeries.status', 'accept')
             ->join('users', 'users.id', '=', 'galeries.id_user')
             ->select('galeries.*', 'users.username', 'users.profile')
             ->latest()
             ->get();
+
         // dd($galery);
+        $galeryidarray = $galery->pluck('id')->toArray();
+
+        // dd($galeryidarray);
+        $countlikes = Like::whereIn('id_galery', $galeryidarray)->get();
+        dd($countlikes);
 
 
         // $datausers = User::where('level',['user'])->get();
         // $users = User::where('id', $user->id)->first();
-        return view('Page.timeline', compact('galery'));
+        return view('Page.timeline', compact('galery', 'countlikes'));
     }
 
     /**

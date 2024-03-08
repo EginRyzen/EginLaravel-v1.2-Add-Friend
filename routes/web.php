@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\GaleryController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PersetujuanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -41,4 +42,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('addfriend', FriendController::class);
     Route::get('daftarteman', [FriendController::class, 'daftarteman']);
     Route::get('unfriend/{id}', [FriendController::class, 'unFriend']);
+
+    Route::resource('like', LikeController::class);
 });

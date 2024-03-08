@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
@@ -44,9 +45,20 @@ class LikeController extends Controller
      * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function show(Like $like)
+    public function show($id)
     {
-        //
+
+        // dd($id);
+        $user = Auth::user();
+
+        $data = [
+            'id_user' => $user->id,
+            'id_galery' => $id,
+        ];
+
+        Like::create($data);
+
+        return back();
     }
 
     /**
