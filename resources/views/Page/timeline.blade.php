@@ -90,18 +90,33 @@
                                                 </div>
                                             </div>
                                             @php
-                                                $liked = $countlikes->contains('id_galery', $data->id);
+                                                // $liked = $countlikes->contains('id_galery', $data->id);
                                                 $likeCount = $countlikes->where('id_galery', $data->id)->count();
+                                                $userLiked = $countlikes
+                                                    ->where('id_galery', $data->id)
+                                                    ->where('id_user', Auth::user()->id)
+                                                    ->count();
                                             @endphp
-                                            @if ($liked)
-                                                <a href="{{ url('like/' . $data->id) }}" class="text-primary"><span>
-                                                        <i class="far fa-thumbs-up mr-1"></i></span>{{ $likeCount }}
-                                                    Like</a>
+
+                                            {{-- @if ($liked) --}}
+                                            @if ($userLiked)
+                                                <a href="{{ url('like/' . $data->id) }}" class="text-primary">
+                                                    <span><i class="far fa-thumbs-up"></i></span>{{ $likeCount }}
+                                                    Like
+                                                </a>
                                             @else
-                                                <a href="{{ url('like/' . $data->id) }}" class="text-dark"><span>
-                                                        <i class="far fa-thumbs-up mr-1"></i></span>
-                                                    Like</a>
+                                                <a href="{{ url('like/' . $data->id) }}" class="text-dark">
+                                                    <i class="far fa-thumbs-up"></i>
+                                                    @if ($likeCount >= 1)
+                                                        {{ $likeCount }}
+                                                        Like
+                                                    @else
+                                                        Like
+                                                    @endif
+                                                </a>
                                             @endif
+                                            {{-- @endif --}}
+
                                             <span class="float-right">
                                                 <a href="#" class="link-black text-sm">
                                                     <i class="far fa-comments mr-1"></i> Comments (5)

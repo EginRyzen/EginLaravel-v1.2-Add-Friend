@@ -49,7 +49,7 @@ class GaleryController extends Controller
 
         // dd($galeryidarray);
         $countlikes = Like::whereIn('id_galery', $galeryidarray)->get();
-        dd($countlikes);
+        // dd($countlikes);
 
 
         // $datausers = User::where('level',['user'])->get();

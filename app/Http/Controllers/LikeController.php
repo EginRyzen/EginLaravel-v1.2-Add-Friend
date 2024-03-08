@@ -48,15 +48,22 @@ class LikeController extends Controller
     public function show($id)
     {
 
-        // dd($id);
         $user = Auth::user();
+        $like = Like::where('id_galery', $id)->where('id_user', $user->id)->first();
+        // dd($like);
 
-        $data = [
-            'id_user' => $user->id,
-            'id_galery' => $id,
-        ];
+        if (isset($like)) {
+            Like::where('id', $like->id)->delete();
+            return back();
+        } else {
+            $data = [
+                'id_user' => $user->id,
+                'id_galery' => $id,
+            ];
 
-        Like::create($data);
+            Like::create($data);
+            return back();
+        }
 
         return back();
     }
