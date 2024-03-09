@@ -30,12 +30,13 @@ class FriendController extends Controller
 
             // dd($search);
             $result = array_column($search, 'id');
+            // dd($result);
             $adds = User::whereIn('users.id', $result)
                 ->leftJoin('friends', 'users.id', '=', 'friends.id_addto')
                 ->select('users.*', 'friends.confirm', 'friends.id_add', 'friends.id_addto')
                 ->get();
 
-            // dd($adds);
+            dd($adds);
             if ($adds) {
                 // $friends = Friend::whereIn('id_addto', $adds->pluck('id')->toArray())
                 //     ->where('id_add', Auth::user()->id)

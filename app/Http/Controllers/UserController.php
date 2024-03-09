@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Friend;
+use App\Models\Like;
 use App\Models\User;
+use App\Models\Friend;
 use App\Models\Galery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -225,6 +226,11 @@ class UserController extends Controller
             ->select('galeries.*', 'users.username', 'users.profile')
             ->latest()
             ->get();
+
+        $galeryidarray = $galery->pluck('id')->toArray();
+        $countlikes = Like::whereIn('id_galery', $galeryidarray)->get();
+        // dd($countlikes);
+
         $users = User::where('id', $id)->first();
         $countfriends = Friend::where('id_add', $id)->where('confirm', 'accept')->get();
         $friend = Friend::where('id_add', $id)
@@ -233,6 +239,6 @@ class UserController extends Controller
             ->first();
         // dd($friend);
 
-        return view('Page.addfriend.profileuser', compact('galery', 'users', 'countfriends', 'friend'));
+        return view('Page.addfriend.profileuser', compact('galery', 'users', 'countfriends', 'friend', 'countlikes'));
     }
 }

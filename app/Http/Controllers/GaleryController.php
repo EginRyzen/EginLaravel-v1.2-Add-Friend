@@ -51,7 +51,6 @@ class GaleryController extends Controller
         $countlikes = Like::whereIn('id_galery', $galeryidarray)->get();
         // dd($countlikes);
 
-
         // $datausers = User::where('level',['user'])->get();
         // $users = User::where('id', $user->id)->first();
         return view('Page.timeline', compact('galery', 'countlikes'));

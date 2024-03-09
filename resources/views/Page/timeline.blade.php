@@ -83,8 +83,7 @@
                                                 <a href="#" class="text-dark mr-2" data-toggle="dropdown"><span>
                                                         <i class="fas fa-share mr-1"></i></span> Share</a>
                                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                                    <a href="" class="dropdown-item font-weight-bold text-sm"
-                                                        onclick="return confirm('Anda Yakin Untuk Menghapus Pertemanan??/')">
+                                                    <a href="" class="dropdown-item font-weight-bold text-sm">
                                                         <i class="fab fa-whatsapp"></i> Kirim WhatsApp
                                                     </a>
                                                 </div>
