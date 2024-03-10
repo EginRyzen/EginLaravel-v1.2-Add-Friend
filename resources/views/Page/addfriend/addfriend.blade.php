@@ -59,37 +59,30 @@
                                                             <h3>{{ $add->name }}</h3>
                                                         </a>
                                                     @else
-                                                        <a href="javascript:;">
+                                                        <a href="{{ url('profileUser/' . $add->id) }}">
                                                             <h3>{{ $add->name }}</h3>
                                                         </a>
                                                     @endif
                                                     {{-- <p class="mb-0 text-muted">{{ $add->pin }}</p> --}}
                                                     <p class="mb-2">{{ $add->username }}</p>
-                                                    {{-- {{ $add->id }} --}}
-                                                    {{-- {{ $add->id_addto }} --}}
-                                                    {{-- @if ($add->id_addto == $add->id)
-                                                        <form action="{{ url('addfriend') }}" method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-primary"><i
-                                                                    class="fas fa-user-plus"></i></button>
-                                                            <input type="hidden" name="id_addto"
-                                                                value="{{ $add->id }}">
-                                                        </form>
-                                                    @endif --}}
+                                                    {{-- @php
+                                                    // $liked = $countlikes->contains('id_galery', $data->id);
+                                                    $likeCount = $countlikes->where('id_galery', $data->id)->count();
+                                                    $userLiked = $countlikes
+                                                        ->where('id_galery', $data->id)
+                                                        ->where('id_user', Auth::user()->id)
+                                                        ->count();
+                                                @endphp --}}
                                                     @if ($add->id == Auth::user()->id)
                                                         <button type="button" class="btn btn-success"><i
                                                                 class="fa fa-user"></i></button>
                                                     @else
-                                                        {{-- @foreach ($friends as $friend) --}}
-                                                        @if ($add->id_addto == $add->id)
-                                                            @if ($add->confirm == 'pending')
-                                                                <button type="button" class="btn btn-secondary"><i
-                                                                        class="fas fa-user-minus"></i></button>
-                                                            @endif
-                                                            @if ($add->confirm == 'accept')
-                                                                <button type="button" class="btn btn-success"><i
-                                                                        class="fas fa-user-check"></i></button>
-                                                            @endif
+                                                        @if ($add->friend_status == 'pending')
+                                                            <button type="button" class="btn btn-secondary"><i
+                                                                    class="fas fa-user-minus"></i></button>
+                                                        @elseif ($add->friend_status == 'accept')
+                                                            <button type="button" class="btn btn-success"><i
+                                                                    class="fas fa-user-check"></i></button>
                                                         @else
                                                             <form action="{{ url('addfriend') }}" method="POST">
                                                                 @csrf
@@ -99,8 +92,8 @@
                                                                     value="{{ $add->id }}">
                                                             </form>
                                                         @endif
-                                                        {{-- @endforeach --}}
                                                     @endif
+
                                                 </div>
                                             </div>
                                         </div>

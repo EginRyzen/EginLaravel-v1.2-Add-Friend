@@ -237,7 +237,7 @@ class UserController extends Controller
             ->where('id_addto', $user->id)
             ->where('confirm', 'accept')
             ->first();
-        // dd($friend);
+        dd($friend);
 
         return view('Page.addfriend.profileuser', compact('galery', 'users', 'countfriends', 'friend', 'countlikes'));
     }

@@ -46,15 +46,15 @@
                                         {{ count($countfriends) }}</span></a>
                             </ul>
                             @if ($friend)
-                                @if ($friend->id_addto == Auth::user()->id)
+                                @if ($friend->id_add == Auth::user()->id)
                                     <a href="javscript:;" class="btn btn-primary btn-block"><b><i
                                                 class="fas fa-user-check"></i></b></a>
                                 @else
                                     <form action="{{ url('addfriend') }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-primary btn-block"><i
+                                        <button type="submit" class="btn btn-primary"><i
                                                 class="fas fa-user-plus"></i></button>
-                                        <input type="hidden" name="id_addto">
+                                        <input type="hidden" name="id_addto" value="{{ $add->id }}">
                                     </form>
                                 @endif
                             @else

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Friend;
 use App\Models\User;
+use App\Models\Friend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class FriendController extends Controller
@@ -32,12 +33,19 @@ class FriendController extends Controller
             $result = array_column($search, 'id');
             // dd($result);
             $adds = User::whereIn('users.id', $result)
-                ->leftJoin('friends', 'users.id', '=', 'friends.id_addto')
-                ->select('users.*', 'friends.confirm', 'friends.id_add', 'friends.id_addto')
+                ->leftJoin('friends', function ($join) use ($user) {
+                    $join->on('users.id', '=', 'friends.id_addto')
+                        ->where('friends.id_add', $user->id);
+                })
+                ->select('users.*', DB::raw('MAX(friends.confirm) as confirm'), DB::raw('MAX(friends.id_add) as id_add'), DB::raw('MAX(friends.id_addto) as id_addto'), DB::raw('IFNULL(MAX(friends.confirm), "none") as friend_status'))
+                ->groupBy('users.id')
                 ->get();
 
-            dd($adds);
+
+
+            // dd($adds);
             if ($adds) {
+                // $friend = Friend::whereIn('id_addto', $result)->get();
                 // $friends = Friend::whereIn('id_addto', $adds->pluck('id')->toArray())
                 //     ->where('id_add', Auth::user()->id)
                 //     ->get();
@@ -47,7 +55,7 @@ class FriendController extends Controller
                 //     ->select('users.*', 'friends.confirm', 'friends.id_add', 'friends.id as idfriend')
                 //     ->get();
                 // if ($friends) {
-                // dd($friends);
+                // dd($friend);
                 return view('Page.addfriend.addfriend', compact('adds'));
                 // } else {
                 // $addme = Friend::where('id_add', $result)->where('id_addto', $result)->first();
