@@ -19,9 +19,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('profileuser', function () {
-//     return view('Page.addfriend.profileuser');
-// });
+Route::get('coment', function () {
+    return view('Page.galeri.coment');
+});
 
 Route::resource('/', UserController::class);
 Route::get('logout', [UserController::class, 'logout']);
