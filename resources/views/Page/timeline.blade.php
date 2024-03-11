@@ -119,17 +119,29 @@
                                                 </a>
                                             @endif
                                             {{-- @endif --}}
-
-                                            <span class="float-right">
-                                                <a href="#" class="link-black text-sm">
-                                                    <i class="far fa-comments mr-1"></i> Comments (5)
-                                                </a>
-                                            </span>
+                                            @php
+                                                $comentCount = $countcoments->where('id_galery', $data->id)->count();
+                                            @endphp
+                                            @if ($comentCount)
+                                                <span class="float-right">
+                                                    <a href="{{ url('coment/' . $data->id) }}" class="link-black text-sm">
+                                                        <i class="far fa-comments mr-1"></i> Comments ({{ $comentCount }})
+                                                    </a>
+                                                </span>
+                                            @else
+                                                <span class="float-right">
+                                                    <a href="#" class="link-black text-sm">
+                                                        <i class="far fa-comments mr-1"></i> Comments
+                                                    </a>
+                                                </span>
+                                            @endif
                                             </p>
 
-                                            <form action="">
-                                                <input class="form-control form-control-sm" type="text"
+                                            <form action="{{ url('coment') }}" method="POST">
+                                                @csrf
+                                                <input class="form-control form-control-sm" type="text" name="coment"
                                                     placeholder="Type a comment">
+                                                <input type="hidden" name="id_galery" value="{{ $data->id }}">
                                             </form>
                                         </div>
                                         <div class="modal fade" id="modal-update{{ $data->id }}">

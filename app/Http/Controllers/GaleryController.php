@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coment;
 use App\Models\Friend;
 use App\Models\User;
 use App\Models\Galery;
@@ -49,11 +50,12 @@ class GaleryController extends Controller
 
         // dd($galeryidarray);
         $countlikes = Like::whereIn('id_galery', $galeryidarray)->get();
-        // dd($countlikes);
+        $countcoments = Coment::whereIn('id_galery', $galeryidarray)->get();
+        // dd($countcoments);
 
         // $datausers = User::where('level',['user'])->get();
         // $users = User::where('id', $user->id)->first();
-        return view('Page.timeline', compact('galery', 'countlikes'));
+        return view('Page.timeline', compact('galery', 'countlikes', 'countcoments'));
     }
 
     /**

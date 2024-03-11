@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coment;
+use App\Models\Galery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ComentController extends Controller
 {
@@ -35,7 +37,18 @@ class ComentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $data = [
+            'id_user' => $user->id,
+            'id_galery' => $request->id_galery,
+            'coment' => $request->coment,
+        ];
+        // dd($data);
+
+        Coment::create($data);
+
+        return back();
     }
 
     /**
@@ -44,9 +57,19 @@ class ComentController extends Controller
      * @param  \App\Models\Coment  $coment
      * @return \Illuminate\Http\Response
      */
-    public function show(Coment $coment)
+    public function show($id)
     {
-        //
+        $posting = Galery::join('users', 'users.id', '=', 'galeries.id_user')
+            ->where('galeries.id', $id)
+            ->select('galeries.*', 'users.username', 'users.id as iduser', 'users.profile')
+            ->first();
+
+        $coments = Coment::join('users', 'users.id', '=', 'coments.id_user')
+            ->where('id_galery', $id)
+            ->select('coments.*', 'users.username', 'users.id as iduser')
+            ->get();
+        // dd($coments);
+        return view('Page.galeri.coment', compact('coments', 'posting'));
     }
 
     /**

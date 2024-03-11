@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ComentController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\LikeController;
@@ -19,9 +20,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('coment', function () {
-    return view('Page.galeri.coment');
-});
+// Route::get('coment', function () {
+//     return view('Page.galeri.coment');
+// });
 
 Route::resource('/', UserController::class);
 Route::get('logout', [UserController::class, 'logout']);
@@ -44,4 +45,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('unfriend/{id}', [FriendController::class, 'unFriend']);
 
     Route::resource('like', LikeController::class);
+
+    Route::resource('coment', ComentController::class);
 });

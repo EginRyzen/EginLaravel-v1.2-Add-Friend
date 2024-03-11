@@ -32,7 +32,7 @@
                                             <img class="img-circle img-bordered-sm"
                                                 src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
                                             <span class="username">
-                                                <a href="">Aguss</a>
+                                                <a href="">{{ $posting->username }}</a>
                                                 <a href="#" class="float-right btn-tool nav-link"
                                                     data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
                                                 <div class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
@@ -48,6 +48,16 @@
                                             </span>
                                             <span class="description">12-12-2024</span>
                                         </div>
+                                        @if ($posting)
+                                            <div class="row py-3">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-4">
+                                                    <img src="{{ asset('image/' . $posting->foto) }}" class="img-fluid"
+                                                        alt="">
+                                                </div>
+                                                <div class="col-md-4"></div>
+                                            </div>
+                                        @endif
                                         <!-- /.user-block -->
                                         <div class="row py-3">
                                             <div class="col-md-4"></div>
@@ -57,11 +67,9 @@
                                             </div>
                                             <div class="col-md-4"></div>
                                         </div>
-                                        <h3>Tess Coment</h3>
+                                        <h3>{{ $posting->judul }}</h3>
                                         <p>
-                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora veritatis,
-                                            quae, reprehenderit qui ab eos laboriosam inventore soluta amet temporibus, quia
-                                            dolor! Ut, similique hic mollitia sunt reprehenderit amet veniam?
+                                            {{ $posting->deskripsi }}
                                         </p>
                                         <hr>
                                         <p>
@@ -85,98 +93,45 @@
                                         </span>
                                         </p>
                                         <hr>
-                                        <div class="row">
-                                            <div class="col-auto">
-                                                <div class="user-block">
-                                                    <img class="img-circle img-bordered-sm"
-                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
+                                        @foreach ($coments as $data)
+                                            <div class="row pb-4">
+                                                <div class="col-auto">
+                                                    <div class="user-block">
+                                                        <img class="img-circle img-bordered-sm"
+                                                            src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-11">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <span class="username">
-                                                                    <a href=""
-                                                                        class="text-decoration-none font-weight-bold text-dark">Aguss</a>
-                                                                </span>
-                                                                <a href="#"
-                                                                    class="float-right text-dark">12-12-2024</a>
-                                                                <br>
-                                                                <p class="mt-2 mb-0">
-                                                                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                                                                    elit.
-                                                                    Distinctio,
-                                                                    quisquam dolore harum voluptates est laboriosam atque
-                                                                    eum
-                                                                    necessitatibus
-                                                                    soluta hic minus quis fugit facilis esse repellendus,
-                                                                    deserunt
-                                                                    delectus
-                                                                    repudiandae ducimus.
-                                                                </p>
-                                                            </div>
-                                                            <div class="card-footer">
-                                                                <a href="" class="text-dark">
-                                                                    Suka(3)
-                                                                </a>
-                                                                <a href="" class="text-primary ml-2">
-                                                                    Balas(3)
-                                                                </a>
+                                                <div class="col-md-11">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <span class="username">
+                                                                        <a href=""
+                                                                            class="text-decoration-none font-weight-bold text-dark">{{ $data->username }}</a>
+                                                                    </span>
+                                                                    <a href="#"
+                                                                        class="float-right text-dark">{{ $data->created_at->diffForHumans() }}</a>
+                                                                    <br>
+                                                                    <p class="mt-2 mb-0">
+                                                                        {{ $data->coment }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                    <a href="" class="text-dark">
+                                                                        Suka(3)
+                                                                    </a>
+                                                                    <a href="" class="text-primary ml-2">
+                                                                        Balas(3)
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row pb-4">
-                                            <div class="col-auto">
-                                                <div class="user-block">
-                                                    <img class="img-circle img-bordered-sm"
-                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-11">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <span class="username">
-                                                                    <a href=""
-                                                                        class="text-decoration-none font-weight-bold text-dark">Aguss</a>
-                                                                </span>
-                                                                <a href="#"
-                                                                    class="float-right text-dark">12-12-2024</a>
-                                                                <br>
-                                                                <p class="mt-2 mb-0">
-                                                                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                                                                    elit.
-                                                                    Distinctio,
-                                                                    quisquam dolore harum voluptates est laboriosam atque
-                                                                    eum
-                                                                    necessitatibus
-                                                                    soluta hic minus quis fugit facilis esse repellendus,
-                                                                    deserunt
-                                                                    delectus
-                                                                    repudiandae ducimus.
-                                                                </p>
-                                                            </div>
-                                                            <div class="card-footer">
-                                                                <a href="" class="text-dark">
-                                                                    Suka(3)
-                                                                </a>
-                                                                <a href="" class="text-primary ml-2">
-                                                                    Balas(3)
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                         <form action="">
                                             <input class="form-control form-control-sm" type="text"
                                                 placeholder="Type a comment">
