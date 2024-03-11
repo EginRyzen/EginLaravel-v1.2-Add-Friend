@@ -63,6 +63,7 @@
                                             quae, reprehenderit qui ab eos laboriosam inventore soluta amet temporibus, quia
                                             dolor! Ut, similique hic mollitia sunt reprehenderit amet veniam?
                                         </p>
+                                        <hr>
                                         <p>
                                         <div class="btn-group dropup">
                                             <a href="#" class="text-dark mr-2" data-toggle="dropdown"><span>
@@ -83,6 +84,7 @@
                                             </a>
                                         </span>
                                         </p>
+                                        <hr>
                                         <div class="row">
                                             <div class="col-auto">
                                                 <div class="user-block">
@@ -92,7 +94,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-11">
-                                                <div class="row pb-5">
+                                                <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="card">
                                                             <div class="card-body">
@@ -117,8 +119,54 @@
                                                                 </p>
                                                             </div>
                                                             <div class="card-footer">
-                                                                <a href="" class="text-primary">
-                                                                    Like
+                                                                <a href="" class="text-dark">
+                                                                    Suka(3)
+                                                                </a>
+                                                                <a href="" class="text-primary ml-2">
+                                                                    Balas(3)
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row pb-4">
+                                            <div class="col-auto">
+                                                <div class="user-block">
+                                                    <img class="img-circle img-bordered-sm"
+                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <span class="username">
+                                                                    <a href=""
+                                                                        class="text-decoration-none font-weight-bold text-dark">Aguss</a>
+                                                                </span>
+                                                                <a href="#"
+                                                                    class="float-right text-dark">12-12-2024</a>
+                                                                <br>
+                                                                <p class="mt-2 mb-0">
+                                                                    Lorem ipsum dolor sit amet consectetur, adipisicing
+                                                                    elit.
+                                                                    Distinctio,
+                                                                    quisquam dolore harum voluptates est laboriosam atque
+                                                                    eum
+                                                                    necessitatibus
+                                                                    soluta hic minus quis fugit facilis esse repellendus,
+                                                                    deserunt
+                                                                    delectus
+                                                                    repudiandae ducimus.
+                                                                </p>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <a href="" class="text-dark">
+                                                                    Suka(3)
                                                                 </a>
                                                                 <a href="" class="text-primary ml-2">
                                                                     Balas(3)
