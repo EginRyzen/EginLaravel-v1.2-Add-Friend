@@ -33,11 +33,23 @@ class FriendController extends Controller
             $result = array_column($search, 'id');
             // dd($result);
             $adds = User::whereIn('users.id', $result)
-                ->leftJoin('friends', function ($join) use ($user) {
-                    $join->on('users.id', '=', 'friends.id_addto')
-                        ->where('friends.id_add', $user->id);
+                ->leftJoin('friends as f1', function ($join) use ($user) {
+                    $join->on('users.id', '=', 'f1.id_addto')
+                        ->where('f1.id_add', $user->id);
                 })
-                ->select('users.*', DB::raw('MAX(friends.confirm) as confirm'), DB::raw('MAX(friends.id_add) as id_add'), DB::raw('MAX(friends.id_addto) as id_addto'), DB::raw('IFNULL(MAX(friends.confirm), "none") as friend_status'))
+                ->leftJoin('friends as f2', function ($join) use ($user) {
+                    $join->on('users.id', '=', 'f2.id_add')
+                        ->where('f2.id_addto', $user->id);
+                })
+                ->select(
+                    'users.*',
+                    DB::raw('IFNULL(MAX(f1.confirm), "none") as addto_confirm'),
+                    DB::raw('IFNULL(MAX(f1.id_add), "none") as addto_id'),
+                    DB::raw('IFNULL(MAX(f1.id_addto), "none") as addto_idto'),
+                    DB::raw('IFNULL(MAX(f2.confirm), "none") as add_confirm'),
+                    DB::raw('IFNULL(MAX(f2.id_add), "none") as add_id'),
+                    DB::raw('IFNULL(MAX(f2.id_addto), "none") as add_idto')
+                )
                 ->groupBy('users.id')
                 ->get();
 

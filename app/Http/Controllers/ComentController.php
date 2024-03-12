@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Coment;
 use App\Models\Galery;
 use Illuminate\Http\Request;
@@ -64,12 +65,15 @@ class ComentController extends Controller
             ->select('galeries.*', 'users.username', 'users.id as iduser', 'users.profile')
             ->first();
 
+        $countlikes = Like::where('id_galery', $id)->get();
+        $countcoments = Coment::where('id_galery', $id)->get();
+        // dd($countlikes);
         $coments = Coment::join('users', 'users.id', '=', 'coments.id_user')
             ->where('id_galery', $id)
             ->select('coments.*', 'users.username', 'users.id as iduser')
             ->get();
         // dd($coments);
-        return view('Page.galeri.coment', compact('coments', 'posting'));
+        return view('Page.galeri.coment', compact('coments', 'posting', 'countlikes', 'countcoments'));
     }
 
     /**

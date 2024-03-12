@@ -63,7 +63,7 @@
                                                             <h3>{{ $add->name }}</h3>
                                                         </a>
                                                     @endif
-                                                    {{-- <p class="mb-0 text-muted">{{ $add->pin }}</p> --}}
+                                                    {{-- <p class="mb-0 text-muted">{{ $add->id_addto }}</p> --}}
                                                     <p class="mb-2">{{ $add->username }}</p>
                                                     {{-- @php
                                                     // $liked = $countlikes->contains('id_galery', $data->id);
@@ -77,10 +77,13 @@
                                                         <button type="button" class="btn btn-success"><i
                                                                 class="fa fa-user"></i></button>
                                                     @else
-                                                        @if ($add->friend_status == 'pending')
+                                                        @if ($add->add_idto == Auth::user()->id && $add->add_confirm == 'pending')
+                                                            <button type="button"
+                                                                class="btn btn-primary">Konfirmasi</button>
+                                                        @elseif ($add->addto_confirm == 'pending' || $add->add_confirm == 'pending')
                                                             <button type="button" class="btn btn-secondary"><i
                                                                     class="fas fa-user-minus"></i></button>
-                                                        @elseif ($add->friend_status == 'accept')
+                                                        @elseif ($add->addto_confirm == 'accept' || $add->add_confirm == 'accept')
                                                             <button type="button" class="btn btn-success"><i
                                                                     class="fas fa-user-check"></i></button>
                                                         @else

@@ -122,7 +122,7 @@ class GaleryController extends Controller
     {
         Galery::where('id', $id)->delete();
 
-        return back();
+        return redirect('timeline');
     }
 
     /**
