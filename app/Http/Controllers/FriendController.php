@@ -44,8 +44,10 @@ class FriendController extends Controller
                 ->select(
                     'users.*',
                     DB::raw('IFNULL(MAX(f1.confirm), "none") as addto_confirm'),
+                    DB::raw('IFNULL(MAX(f1.confirm), "none") as addto_confirm'),
                     DB::raw('IFNULL(MAX(f1.id_add), "none") as addto_id'),
                     DB::raw('IFNULL(MAX(f1.id_addto), "none") as addto_idto'),
+                    DB::raw('IFNULL(MAX(f2.id), "none") as idfriend'),
                     DB::raw('IFNULL(MAX(f2.confirm), "none") as add_confirm'),
                     DB::raw('IFNULL(MAX(f2.id_add), "none") as add_id'),
                     DB::raw('IFNULL(MAX(f2.id_addto), "none") as add_idto')
@@ -120,19 +122,19 @@ class FriendController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-        $friend = Friend::where('id', $id)->first();
+        // $user = Auth::user();
+        // $friend = Friend::where('id', $id)->first();
         // dd($friend);
 
         $acc = [
             'confirm' => 'accept'
         ];
         Friend::where('id', $id)->update($acc);
-        Friend::create([
-            'id_add' => $user->id,
-            'id_addto' => $friend->id_add,
-            'confirm' => 'accept',
-        ]);
+        // Friend::create([
+        //     'id_add' => $user->id,
+        //     'id_addto' => $friend->id_add,
+        //     'confirm' => 'accept',
+        // ]);
 
 
         return back()->with('success', 'Success Your Confirm');
@@ -178,17 +180,21 @@ class FriendController extends Controller
 
         // $galery = Galery::where('id_user', $user->id)->latest()->get();
         $users = User::where('id', $user->id)->first();
-        $countfriends = Friend::where('id_add', $user->id)->where('confirm', 'accept')->get();
+        $countfriends = Friend::where(function ($query) use ($user) {
+            $query->where('id_add', $user->id)
+                ->orWhere('id_addto', $user->id);
+        })
+            ->where('confirm', 'accept')
+            ->get();
+        // dd($countfriends);
 
-        $friendslist = Friend::join('users', 'users.id', '=', 'friends.id_add')
-            ->where('friends.id_add', $user->id)
-            ->where('friends.confirm', 'accept')
-            ->get()
-            ->toArray();
-        $result = array_column($friendslist, 'id_addto');
+        $result = $countfriends->pluck('id_add')->merge($countfriends->pluck('id_addto'))->toArray();
+        // dd($result);
+        // $result = array_column($friendslist, 'id_addto');
         $friend = User::whereIn('id', $result)
             ->where('level', 'user')
             ->where('status', 1)
+            ->whereNotIn('id', [$user->id])
             ->get();
         // dd($friend);
 

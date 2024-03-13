@@ -26,13 +26,14 @@ class GaleryController extends Controller
         // dd($user);
         // $galery = Galery::where('id_user', $user->id)->where('status', 'accept')->latest()->get();
         // dd($galery);
-        $friendadd =  Friend::where('id_add', $user->id)
-            ->orWhere('id_addto', $user->id)
+        $friendadd =  Friend::where(function ($query) use ($user) {
+            $query->where('id_add', $user->id)
+                ->orWhere('id_addto', $user->id);
+        })
             ->where('confirm', 'accept')
-            // ->pluck('id_add')
             ->get()
             ->toArray();
-        $idarray =  array_column($friendadd, 'id_add');
+        $idarray =  array_unique(array_merge(array_column($friendadd, 'id_add'), array_column($friendadd, 'id_addto')));
 
         // dd($idarray);
         $galery = Galery::where(function ($query) use ($idarray, $user) {

@@ -149,19 +149,35 @@
                                                                         <a href=""
                                                                             class="text-decoration-none font-weight-bold text-dark">{{ $data->username }}</a>
                                                                     </span>
-                                                                    <a href="#"
-                                                                        class="float-right text-dark">{{ $data->created_at->diffForHumans() }}</a>
+                                                                    @if ($data->id_user == Auth::user()->id)
+                                                                        <a href="#"
+                                                                            class="float-right btn-tool nav-link"
+                                                                            data-toggle="dropdown"><i
+                                                                                class="fas fa-ellipsis-v"></i></a>
+                                                                        <div
+                                                                            class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
+                                                                            <a href="#" class="dropdown-item"
+                                                                                data-toggle="modal"
+                                                                                data-target="#modal-update{{ $data->id }}">
+                                                                                <i class="fa fa-edit"></i> Edit
+                                                                            </a>
+                                                                            <a href="{{ url('timeline/' . $data->id) }}"
+                                                                                class="dropdown-item"
+                                                                                onclick="return confirm('Yakin Untuk Di Hapus??/')">
+                                                                                <i class="fa fa-trash"></i> Delete
+                                                                            </a>
+                                                                        </div>
+                                                                    @endif
                                                                     <br>
                                                                     <p class="mt-2 mb-0">
                                                                         {{ $data->coment }}
                                                                     </p>
                                                                 </div>
                                                                 <div class="card-footer">
-                                                                    <a href="" class="text-dark">
-                                                                        Suka(3)
-                                                                    </a>
+                                                                    <a href="#"
+                                                                        class="text-dark">{{ $data->created_at->locale('id')->diffForHumans() }}</a>
                                                                     <a href="" class="text-primary ml-2">
-                                                                        Balas(3)
+                                                                        Balasan(3)
                                                                     </a>
                                                                 </div>
                                                             </div>

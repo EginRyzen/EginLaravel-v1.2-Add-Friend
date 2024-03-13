@@ -205,7 +205,13 @@ class UserController extends Controller
             ->latest()
             ->get();
         $users = User::where('id', $user->id)->first();
-        $countfriends = Friend::where('id_add', $user->id)->where('confirm', 'accept')->get();
+        $countfriends = Friend::where(function ($query) use ($user) {
+            $query->where('id_add', $user->id)
+                ->orWhere('id_addto', $user->id);
+        })
+            ->where('confirm', 'accept')
+            ->get();
+        // dd($countfriends);
 
         $friends = Friend::join('users', 'users.id', '=', 'friends.id_add')
             ->where('friends.id_addto', $user->id)
@@ -232,12 +238,18 @@ class UserController extends Controller
         // dd($countlikes);
 
         $users = User::where('id', $id)->first();
-        $countfriends = Friend::where('id_add', $id)->where('confirm', 'accept')->get();
+        $countfriends = Friend::where(function ($query) use ($id) {
+            $query->where('id_add', $id)
+                ->orWhere('id_addto', $id);
+        })
+            ->where('confirm', 'accept')
+            ->get();
+        // dd($countfriends);
         $friend = Friend::where('id_add', $id)
-            ->where('id_addto', $user->id)
+            ->orWhere('id_addto', $id)
             ->where('confirm', 'accept')
             ->first();
-        dd($friend);
+        // dd($friend);
 
         return view('Page.addfriend.profileuser', compact('galery', 'users', 'countfriends', 'friend', 'countlikes'));
     }

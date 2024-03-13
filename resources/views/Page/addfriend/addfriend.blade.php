@@ -78,8 +78,8 @@
                                                                 class="fa fa-user"></i></button>
                                                     @else
                                                         @if ($add->add_idto == Auth::user()->id && $add->add_confirm == 'pending')
-                                                            <button type="button"
-                                                                class="btn btn-primary">Konfirmasi</button>
+                                                            <a href="{{ url('addfriend/' . $add->idfriend) }}"
+                                                                class="btn btn-primary btn-sm mt-1">Konfirmasi</a>
                                                         @elseif ($add->addto_confirm == 'pending' || $add->add_confirm == 'pending')
                                                             <button type="button" class="btn btn-secondary"><i
                                                                     class="fas fa-user-minus"></i></button>
