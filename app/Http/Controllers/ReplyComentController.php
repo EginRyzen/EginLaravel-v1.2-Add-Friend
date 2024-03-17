@@ -7,6 +7,7 @@ use App\Models\Coment;
 use App\Models\Galery;
 use App\Models\ReplyComent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReplyComentController extends Controller
 {
@@ -17,20 +18,7 @@ class ReplyComentController extends Controller
      */
     public function index($id)
     {
-        $posting = Galery::join('users', 'users.id', '=', 'galeries.id_user')
-            ->where('galeries.id', $id)
-            ->select('galeries.*', 'users.username', 'users.id as iduser', 'users.profile')
-            ->first();
-
-        $countlikes = Like::where('id_galery', $id)->get();
-        $countcoments = Coment::where('id_galery', $id)->get();
-        // dd($countlikes);
-        $coments = Coment::join('users', 'users.id', '=', 'coments.id_user')
-            ->where('id_galery', $id)
-            ->select('coments.*', 'users.username', 'users.id as iduser')
-            ->first();
-
-        return view('Page.galeri.coment', compact('coments', 'posting', 'countlikes', 'countcoments'));
+        //
     }
 
     /**
@@ -51,7 +39,18 @@ class ReplyComentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->input());
+        $user = Auth::user();
+
+        $data = [
+            'id_user' => $user->id,
+            'id_coment' => $request->id_coment,
+            'replycoment' => $request->replycoment,
+        ];
+
+        ReplyComent::create($data);
+
+        return back();
     }
 
     /**
@@ -60,9 +59,36 @@ class ReplyComentController extends Controller
      * @param  \App\Models\ReplyComent  $replyComent
      * @return \Illuminate\Http\Response
      */
-    public function show(ReplyComent $replyComent)
+    public function show($id)
     {
-        //
+        $coment = Coment::join('users', 'users.id', '=', 'coments.id_user')
+            ->where('coments.id', $id)
+            ->select('coments.*', 'users.username', 'users.id as iduser')
+            ->first();
+        // dd($coment);
+
+        $posting = Galery::join('users', 'users.id', '=', 'galeries.id_user')
+            ->where('galeries.id', $coment->id_galery)
+            ->select('galeries.*', 'users.username', 'users.id as iduser', 'users.profile')
+            ->first();
+        // dd($posting);
+
+        $countlikes = Like::where('id_galery', $posting->id)->get();
+        $countcoments = Coment::where('id_galery', $posting->id)->get();
+        $replyComent = ReplyComent::where('id_coment', $coment->id)->count();
+        // dd($replyComent);
+
+        $dataReply = ReplyComent::join('users', 'users.id', '=', 'reply_coments.id_user')
+            ->join('coments', 'coments.id', '=', 'reply_coments.id_coment')
+            ->where('coments.id', $id)
+            ->select('reply_coments.*', 'users.username', 'users.profile', 'users.id as uid')
+            ->get();
+        // dd($dataReply);
+
+        return view(
+            'Page.galeri.replycoment',
+            compact('coment', 'posting', 'countlikes', 'countcoments', 'replyComent', 'dataReply')
+        );
     }
 
     /**

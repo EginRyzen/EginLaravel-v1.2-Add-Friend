@@ -149,6 +149,7 @@
                                                                         <a href=""
                                                                             class="text-decoration-none font-weight-bold text-dark">{{ $data->username }}</a>
                                                                     </span>
+
                                                                     @if ($data->id_user == Auth::user()->id)
                                                                         <a href="#"
                                                                             class="float-right btn-tool nav-link"
@@ -168,16 +169,27 @@
                                                                             </a>
                                                                         </div>
                                                                     @endif
+
                                                                     <br>
                                                                     <p class="mt-2 mb-0">
                                                                         {{ $data->coment }}
                                                                     </p>
                                                                 </div>
                                                                 <div class="card-footer">
+                                                                    @php
+                                                                        $countReply = $replyComent
+                                                                            ->where('id_coment', $data->id)
+                                                                            ->count();
+                                                                    @endphp
                                                                     <a href="#"
                                                                         class="text-dark">{{ $data->created_at->locale('id')->diffForHumans() }}</a>
-                                                                    <a href="" class="text-primary ml-2">
-                                                                        Balasan(3)
+                                                                    <a href="{{ url('replycoment/' . $data->id) }}"
+                                                                        class="text-primary ml-2">
+                                                                        @if ($countReply >= 1)
+                                                                            Balasan({{ $countReply }})
+                                                                        @else
+                                                                            Balas
+                                                                        @endif
                                                                     </a>
                                                                 </div>
                                                             </div>

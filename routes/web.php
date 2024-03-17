@@ -6,6 +6,7 @@ use App\Http\Controllers\FriendController;
 use App\Http\Controllers\GaleryController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PersetujuanController;
+use App\Http\Controllers\ReplyComentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -47,4 +48,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('like', LikeController::class);
 
     Route::resource('coment', ComentController::class);
+
+    Route::resource('replycoment', ReplyComentController::class);
 });

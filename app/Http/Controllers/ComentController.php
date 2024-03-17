@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use App\Models\Coment;
 use App\Models\Galery;
+use App\Models\ReplyComent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,7 +74,12 @@ class ComentController extends Controller
             ->select('coments.*', 'users.username', 'users.id as iduser')
             ->get();
         // dd($coments);
-        return view('Page.galeri.coment', compact('coments', 'posting', 'countlikes', 'countcoments'));
+        $array = $coments->pluck('id')->toArray();
+
+        $replyComent = ReplyComent::whereIn('id_coment', $array)->get();
+        // dd($replyComent);
+
+        return view('Page.galeri.coment', compact('coments', 'posting', 'countlikes', 'countcoments', 'replyComent'));
     }
 
     /**
