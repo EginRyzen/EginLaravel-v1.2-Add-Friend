@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('like', LikeController::class);
 
     Route::resource('coment', ComentController::class);
+    Route::get('deletecoment/{id}', [ComentController::class, 'delete']);
 
     Route::resource('replycoment', ReplyComentController::class);
+    Route::get('replycomentdelete/{id}', [ReplyComentController::class, 'delete']);
 });

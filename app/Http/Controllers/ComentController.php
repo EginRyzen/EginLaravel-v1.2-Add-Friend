@@ -71,7 +71,7 @@ class ComentController extends Controller
         // dd($countlikes);
         $coments = Coment::join('users', 'users.id', '=', 'coments.id_user')
             ->where('id_galery', $id)
-            ->select('coments.*', 'users.username', 'users.id as iduser')
+            ->select('coments.*', 'users.username', 'users.profile', 'users.id as iduser')
             ->get();
         // dd($coments);
         $array = $coments->pluck('id')->toArray();
@@ -100,9 +100,17 @@ class ComentController extends Controller
      * @param  \App\Models\Coment  $coment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Coment $coment)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+
+        $data = [
+            'coment' => $request->coment,
+        ];
+
+        Coment::where('id', $id)->update($data);
+
+        return back();
     }
 
     /**
@@ -114,5 +122,12 @@ class ComentController extends Controller
     public function destroy(Coment $coment)
     {
         //
+    }
+
+    public function delete($id)
+    {
+        Coment::where('id', $id)->delete();
+
+        return back();
     }
 }

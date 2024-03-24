@@ -63,7 +63,7 @@ class ReplyComentController extends Controller
     {
         $coment = Coment::join('users', 'users.id', '=', 'coments.id_user')
             ->where('coments.id', $id)
-            ->select('coments.*', 'users.username', 'users.id as iduser')
+            ->select('coments.*', 'users.username', 'users.profile', 'users.id as iduser')
             ->first();
         // dd($coment);
 
@@ -109,9 +109,15 @@ class ReplyComentController extends Controller
      * @param  \App\Models\ReplyComent  $replyComent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ReplyComent $replyComent)
+    public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'replycoment' => $request->replycoment,
+        ];
+
+        ReplyComent::where('id', $id)->update($data);
+
+        return back();
     }
 
     /**
@@ -123,5 +129,12 @@ class ReplyComentController extends Controller
     public function destroy(ReplyComent $replyComent)
     {
         //
+    }
+
+    public function delete($id)
+    {
+        ReplyComent::where('id', $id)->delete();
+
+        return back();
     }
 }

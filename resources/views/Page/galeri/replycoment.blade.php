@@ -133,11 +133,18 @@
                                         <hr>
                                         <div class="row pb-4">
                                             <div class="col-auto">
-                                                <div class="user-block">
-                                                    <img class="img-circle img-bordered-sm"
-                                                        src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
-
-                                                </div>
+                                                @if ($coment->profile)
+                                                    <div class="user-block">
+                                                        <img class="img-circle img-bordered-sm"
+                                                            src="{{ asset('image/' . $coment->profile) }}"
+                                                            alt="user image">
+                                                    </div>
+                                                @else
+                                                    <div class="user-block">
+                                                        <img class="img-circle img-bordered-sm"
+                                                            src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="col-md-11">
                                                 <div class="row">
@@ -156,14 +163,49 @@
                                                                         class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
                                                                         <a href="#" class="dropdown-item"
                                                                             data-toggle="modal"
-                                                                            data-target="#modal-update{{ $coment->id }}">
+                                                                            data-target="#modal-updatecoment{{ $coment->id }}">
                                                                             <i class="fa fa-edit"></i> Edit
                                                                         </a>
-                                                                        <a href="{{ url('timeline/' . $coment->id) }}"
-                                                                            class="dropdown-item"
-                                                                            onclick="return confirm('Yakin Untuk Di Hapus??/')">
-                                                                            <i class="fa fa-trash"></i> Delete
-                                                                        </a>
+                                                                    </div>
+                                                                    <div class="modal fade"
+                                                                        id="modal-updatecoment{{ $coment->id }}">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Update
+                                                                                        Coment</h4>
+                                                                                    <button type="button" class="close"
+                                                                                        data-dismiss="modal"
+                                                                                        aria-label="Close">
+                                                                                        <span
+                                                                                            aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form
+                                                                                    action="{{ url('coment/' . $coment->id) }}"
+                                                                                    method="post"
+                                                                                    enctype="multipart/form-data">
+                                                                                    @method('PUT')
+                                                                                    @csrf
+                                                                                    <div class="modal-body">
+                                                                                        <div class="form-group">
+                                                                                            <textarea name="coment" required class="form-control" placeholder="Coment" rows="5">{{ $coment->coment }}</textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="modal-footer justify-content-between">
+                                                                                        <button type="button"
+                                                                                            class="btn btn-default"
+                                                                                            data-dismiss="modal">Close</button>
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-primary">Save
+                                                                                            changes</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <!-- /.modal-content -->
+                                                                        </div>
+                                                                        <!-- /.modal-dialog -->
                                                                     </div>
                                                                 @endif
                                                                 <br>
@@ -223,15 +265,62 @@
                                                                                         <a href="#"
                                                                                             class="dropdown-item"
                                                                                             data-toggle="modal"
-                                                                                            data-target="#modal-update{{ $data->id }}">
+                                                                                            data-target="#modal-updatereply{{ $data->id }}">
                                                                                             <i class="fa fa-edit"></i> Edit
                                                                                         </a>
-                                                                                        <a href="{{ url('timeline/' . $data->id) }}"
+                                                                                        <a href="{{ url('replycomentdelete/' . $data->id) }}"
                                                                                             class="dropdown-item"
                                                                                             onclick="return confirm('Yakin Untuk Di Hapus??/')">
                                                                                             <i class="fa fa-trash"></i>
                                                                                             Delete
                                                                                         </a>
+                                                                                    </div>
+                                                                                    <div class="modal fade"
+                                                                                        id="modal-updatereply{{ $data->id }}">
+                                                                                        <div class="modal-dialog modal-lg">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h4
+                                                                                                        class="modal-title">
+                                                                                                        Update
+                                                                                                        ReplyComent</h4>
+                                                                                                    <button type="button"
+                                                                                                        class="close"
+                                                                                                        data-dismiss="modal"
+                                                                                                        aria-label="Close">
+                                                                                                        <span
+                                                                                                            aria-hidden="true">&times;</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                <form
+                                                                                                    action="{{ url('replycoment/' . $data->id) }}"
+                                                                                                    method="post"
+                                                                                                    enctype="multipart/form-data">
+                                                                                                    @method('PUT')
+                                                                                                    @csrf
+                                                                                                    <div
+                                                                                                        class="modal-body">
+                                                                                                        <div
+                                                                                                            class="form-group">
+                                                                                                            <textarea name="replycoment" required class="form-control" placeholder="ReplyComent" rows="5">{{ $data->replycoment }}</textarea>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div
+                                                                                                        class="modal-footer justify-content-between">
+                                                                                                        <button
+                                                                                                            type="button"
+                                                                                                            class="btn btn-default"
+                                                                                                            data-dismiss="modal">Close</button>
+                                                                                                        <button
+                                                                                                            type="submit"
+                                                                                                            class="btn btn-primary">Save
+                                                                                                            changes</button>
+                                                                                                    </div>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                            <!-- /.modal-content -->
+                                                                                        </div>
+                                                                                        <!-- /.modal-dialog -->
                                                                                     </div>
                                                                                 @endif
                                                                                 <p class="mt-2 mb-0">

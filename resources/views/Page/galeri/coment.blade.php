@@ -134,11 +134,19 @@
                                         @foreach ($coments as $data)
                                             <div class="row pb-4">
                                                 <div class="col-auto">
-                                                    <div class="user-block">
-                                                        <img class="img-circle img-bordered-sm"
-                                                            src="{{ asset('DefaultImage/profil.jpeg') }}" alt="user image">
-
-                                                    </div>
+                                                    @if ($data->profile)
+                                                        <div class="user-block">
+                                                            <img class="img-circle img-bordered-sm"
+                                                                src="{{ asset('image/' . $data->profile) }}"
+                                                                alt="user image">
+                                                        </div>
+                                                    @else
+                                                        <div class="user-block">
+                                                            <img class="img-circle img-bordered-sm"
+                                                                src="{{ asset('DefaultImage/profil.jpeg') }}"
+                                                                alt="user image">
+                                                        </div>
+                                                    @endif
                                                 </div>
                                                 <div class="col-md-11">
                                                     <div class="row">
@@ -162,14 +170,54 @@
                                                                                 data-target="#modal-update{{ $data->id }}">
                                                                                 <i class="fa fa-edit"></i> Edit
                                                                             </a>
-                                                                            <a href="{{ url('timeline/' . $data->id) }}"
+                                                                            <a href="{{ url('deletecoment/' . $data->id) }}"
                                                                                 class="dropdown-item"
                                                                                 onclick="return confirm('Yakin Untuk Di Hapus??/')">
                                                                                 <i class="fa fa-trash"></i> Delete
                                                                             </a>
                                                                         </div>
+                                                                        <div class="modal fade"
+                                                                            id="modal-update{{ $data->id }}">
+                                                                            <div class="modal-dialog modal-lg">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Update
+                                                                                            Coment</h4>
+                                                                                        <button type="button"
+                                                                                            class="close"
+                                                                                            data-dismiss="modal"
+                                                                                            aria-label="Close">
+                                                                                            <span
+                                                                                                aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <form
+                                                                                        action="{{ url('coment/' . $data->id) }}"
+                                                                                        method="post"
+                                                                                        enctype="multipart/form-data">
+                                                                                        @method('PUT')
+                                                                                        @csrf
+                                                                                        <div class="modal-body">
+                                                                                            <div class="form-group">
+                                                                                                <textarea name="coment" required class="form-control" placeholder="Coment" rows="5">{{ $data->coment }}</textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="modal-footer justify-content-between">
+                                                                                            <button type="button"
+                                                                                                class="btn btn-default"
+                                                                                                data-dismiss="modal">Close</button>
+                                                                                            <button type="submit"
+                                                                                                class="btn btn-primary">Save
+                                                                                                changes</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <!-- /.modal-content -->
+                                                                            </div>
+                                                                            <!-- /.modal-dialog -->
+                                                                        </div>
                                                                     @endif
-
                                                                     <br>
                                                                     <p class="mt-2 mb-0">
                                                                         {{ $data->coment }}
@@ -195,46 +243,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="row">
-                                                        <div class="col-auto">
-                                                            <div class="col-auto">
-                                                                <div class="user-block">
-                                                                    <img class="img-circle img-bordered-sm"
-                                                                        src="{{ asset('DefaultImage/profil.jpeg') }}"
-                                                                        alt="user image">
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-11">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="card">
-                                                                        <div class="card-body">
-                                                                            <span class="username">
-                                                                                <a href=""
-                                                                                    class="text-decoration-none font-weight-bold text-dark">{{ $data->username }}</a>
-                                                                            </span>
-                                                                            <a href="#"
-                                                                                class="float-right text-dark">{{ $data->created_at->diffForHumans() }}</a>
-                                                                            <br>
-                                                                            <p class="mt-2 mb-0">
-                                                                                {{ $data->coment }}
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="card-footer">
-                                                                            <a href="" class="text-dark">
-                                                                                Suka(3)
-                                                                            </a>
-                                                                            <a href="" class="text-primary ml-2">
-                                                                                Balas(3)
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                                 </div>
                                             </div>
                                         @endforeach
